@@ -3,12 +3,18 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
+import { UpdateUserComponent } from './components/user/update-user/update-user.component';
+import { GetUserComponent } from './components/user/get-user/get-user.component';
 
 export const routes: Routes = [
     {
         path: "",
         component: HomeComponent,
-        children:[{path: "login", component: LoginComponent},{path:"", component:AboutUsComponent}]
+        children: [{ path: "login", component: LoginComponent }, { path: "", component: AboutUsComponent }]
     },
-    { path: "userHome/:userId", component: UserHomeComponent }
+    {
+        path: "userHome/:userId",
+        component: UserHomeComponent,
+        children: [{ path: "update", component: UpdateUserComponent }, { path: "get", component: GetUserComponent}]
+    }
 ];

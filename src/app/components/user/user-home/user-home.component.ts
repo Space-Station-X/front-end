@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../../types/user';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-home',
   standalone: true,
-  imports: [TitleCasePipe],
+  imports: [TitleCasePipe, RouterLink, RouterOutlet],
   templateUrl: './user-home.component.html',
   styleUrl: './user-home.component.css'
 })
