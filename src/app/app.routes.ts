@@ -5,6 +5,9 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
 import { UpdateUserComponent } from './components/user/update-user/update-user.component';
 import { GetUserComponent } from './components/user/get-user/get-user.component';
+import { UserVideogameComponent } from './components/user/user-videogame/user-videogame.component';
+import { VideogameHomeComponent } from './components/videogame/videogame-home/videogame-home.component';
+import { UpdateVideogameComponent } from './components/videogame/update-videogame/update-videogame.component';
 
 export const routes: Routes = [
     {
@@ -15,6 +18,17 @@ export const routes: Routes = [
     {
         path: "userHome/:userId",
         component: UserHomeComponent,
-        children: [{ path: "update", component: UpdateUserComponent }, { path: "get", component: GetUserComponent}]
+        children: [
+            { path: "update", component: UpdateUserComponent },
+            { path: "get", component: GetUserComponent },
+            { path: "", component: UserVideogameComponent, },
+            {
+                path: "videogame",
+                component: VideogameHomeComponent,
+                children: [
+                    { path: "update", component: UpdateVideogameComponent }
+                ]
+            },
+        ]
     }
 ];
