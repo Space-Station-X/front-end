@@ -7,21 +7,19 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-user-videogame',
   standalone: true,
-  imports: [RouterLink, CommonModule , RouterOutlet],
+  imports: [RouterLink, CommonModule],
   templateUrl: './user-videogame.component.html',
   styleUrl: './user-videogame.component.css'
 })
 export class UserVideogameComponent implements OnInit {
-  videojuegos : Videogame[] =[]
-  idVideogame : number | undefined ;
-
-  constructor ( private  videogameService:VideogameService){}
+  videojuegos: Videogame[] = []
+  constructor(private videogameService: VideogameService) { }
 
   ngOnInit(): void {
-      this.videogameService.getVideogames().subscribe(
-        (data:Videogame[])=>{this.videojuegos =data}
+    this.videogameService.getVideogames().subscribe(
+      (data: Videogame[]) => { this.videojuegos = data }
 
-      )
-      
+    )
+
   }
 }

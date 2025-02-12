@@ -18,9 +18,10 @@
           <td>{{ videojuego.genero }}</td>
           <td>{{ videojuego.nuCopias }}</td>
           <td>
-            <button class="btn btn-primary" [routerLink]="['videogame']" [queryParams] = "{idVideogame : videojuego.id}" >
-              Ver
+            <button class="btn btn-primary" [routerLink]="['/userHome/1/videogame', videojuego.id]">
+              Ver Detalles
             </button>
+        
           </td>
         </tr>
       </tbody>

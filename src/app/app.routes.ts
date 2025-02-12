@@ -22,13 +22,8 @@ export const routes: Routes = [
             { path: "update", component: UpdateUserComponent },
             { path: "get", component: GetUserComponent },
             { path: "", component: UserVideogameComponent, },
-            {
-                path: "videogame",
-                component: VideogameHomeComponent,
-                children: [
-                    { path: "update", component: UpdateVideogameComponent }
-                ]
-            },
+            { path: "videogame/:id",component: VideogameHomeComponent},
+            { path: "updateVideogame/:id", component: UpdateVideogameComponent }
         ]
     }
 ];

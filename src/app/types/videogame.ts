@@ -6,6 +6,6 @@ export interface Videogame {
     imagen: Uint8Array
     nuCopias: number
     genero: string
-    feReg?: string
+    feReg?: Date
     precio: number
 }
