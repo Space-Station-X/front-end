@@ -71,7 +71,8 @@ export class UpdateVideogameComponent implements OnInit {
       Validators.max(1000000),
       Validators.pattern("^[0-9]+$")
     ]),
-    feReg: new FormControl<string | Date | null>(new Date().toISOString().slice(0, 10)) 
+    feReg: new FormControl<string | Date | null>(new Date().toISOString().slice(0, 10)),
+    imagen: new FormControl<string | null>(null)
   })
 
   updateVideogame() {

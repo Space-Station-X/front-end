@@ -3,7 +3,7 @@ export interface Videogame {
     nombre: string
     descripcion: string
     plataforma: string
-    imagen: Uint8Array
+    imagen: string
     nuCopias: number
     genero: string
     feReg?: Date

@@ -1,27 +1,34 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <!-- Item a la izquierda -->
-      <a class="navbar-brand" routerLink="/userHome/{{user.userId}}">Inicio</a>
-      
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<h3 class="text-center mt-5">Bienvenido USUARIO</h3>
+<div class="container-fluid">
+  <div class=" text-end">
+    <button class="btn btn-primary"  routerLink="/userHome/1/createVideogame">CREAR VIDEOJUEGO</button>
+  </div>
+  <table class="table table-striped table-hover mt-4">
+    <thead class="table-dark text-uppercase">
+      <tr>
+        <th>N°</th>
+        <th>Nombre</th>
+        <th>Plataforma</th>
+        <th>Genero</th>
+        <th>Número de Copias</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let videojuego of videojuegos ; let i = index">
+        <td>{{ i+1 }}</td>
+        <td>{{ videojuego.nombre }}</td>
+        <td>{{ videojuego.plataforma }}</td>
+        <td>{{ videojuego.genero }}</td>
+        <td>{{ videojuego.nuCopias }}</td>
+        <td>
+          <button class="btn btn-primary text-end" [routerLink]="['/userHome/1/videogame', videojuego.id]">
+            Ver Detalles
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <!-- Items a la derecha -->
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="get" >Ver Datos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="update" >Actualizar Datos</a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" routerLink="" >Cerrar Sesión</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <h3 class="text-center mt-5">Bienvenido {{user.fullName| titlecase}}</h3>
-  <router-outlet></router-outlet>
+

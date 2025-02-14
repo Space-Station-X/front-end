@@ -1,27 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../../types/user';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
-import { TitleCasePipe } from '@angular/common';
-import { UserService } from '../../../service/user.service';
+import { CommonModule, TitleCasePipe } from '@angular/common';
+import { Videogame } from '../../../types/videogame';
+import { VideogameService } from '../../../service/videogame.service';
 
 @Component({
   selector: 'app-user-home',
   standalone: true,
-  imports: [TitleCasePipe, RouterLink, RouterOutlet],
+  imports: [RouterLink, CommonModule],
   templateUrl: './user-home.component.html',
   styleUrl: './user-home.component.css'
 })
 export class UserHomeComponent implements OnInit {
-  
-
-  user: User ={} as User;
-
-  constructor(private readonly activatedRoute: ActivatedRoute ,
-    private readonly userService: UserService
-  ) { }
+  videojuegos: Videogame[] = []
+  constructor(private videogameService: VideogameService) { }
 
   ngOnInit(): void {
-    const userId = this.activatedRoute.snapshot.params['userId'];
-    
+    this.videogameService.getVideogames().subscribe(
+      (data: Videogame[]) => { this.videojuegos = data }
+
+    )
+
   }
 }
