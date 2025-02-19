@@ -1,28 +1,64 @@
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10 col-sm-12">
-            <h2 class="text-center">{{ getVideojuego.nombre }}</h2>
+        <div class="col-lg-8 col-md-8 col-sm-10">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center">{{ getVideojuego.nombre }}</h2>
+                    <div class="row mt-1">
+                        <div class="col-12 col-sm-6">
+                            <img class="img-size" src="{{getVideojuego.imagen}}" alt="">
+                        </div>
+                        <div class="col-12 col-sm-6 mt-5">
+                            <p><strong>Plataforma: </strong>{{ getVideojuego.plataforma }}</p>
+                            <p><strong>Género: </strong>{{ getVideojuego.genero }}</p>
+                            <p><strong>Copias Disponibles: </strong>{{ getVideojuego.nuCopias }}</p>
+                            <p><strong>Registrado el: </strong>{{ getVideojuego.feReg }}</p>
+                            <p><strong>Precio: </strong>{{ getVideojuego.precio | currency }}</p>
+                        </div>
+                    </div>
 
-            <div class="row">
-                <div class="col-lg-8 border p-3">
-                    <img class="img-fluid" src="{{getVideojuego.imagen}}" alt="">
+                    <div class="col-12 mt-3">
+                        <p>{{ getVideojuego.descripcion }}</p>
+                    </div>
                 </div>
-
-                <div class="col-lg-4 mt-3">
-                    <p><strong>Plataforma: </strong>{{ getVideojuego.plataforma }}</p>
-                    <p><strong>Género: </strong>{{ getVideojuego.genero }}</p>
-                    <p><strong>Copias Disponibles: </strong>{{ getVideojuego.nuCopias }}</p>
-                    <p><strong>Registrado el: </strong>{{ getVideojuego.feReg }}</p>
-                    <p><strong>Precio: </strong>{{ getVideojuego.precio | currency }}</p>
+                <div class="card-footer d-flex justify-content-around">
+                    <button class="btn btn-success w-25" routerLink="/userHome/1/updateVideogame/{{getVideojuego.id}}">Actualizar</button>
+                    <button class="btn btn-danger w-25" type="button" (click)="modalDelete()">Eliminar</button>
                 </div>
             </div>
-
-            <div class="col-12 mt-3">
-                <p>{{ getVideojuego.descripcion }}</p>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-bg-danger">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
             </div>
-            <div class="d-flex justify-content-around mt-5">
-                <button class="btn btn-success" routerLink="/userHome/1/updateVideogame/{{getVideojuego.id}}">Actualizar</button>
-                <button class="btn btn-danger" type="button">Eliminar</button>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas eliminar este videojuego?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="deleteVideojuego(getVideojuego.id)">Aceptar</button>
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de aviso-->
+<div class="modal fade" id="modalAviso" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-bg-primary">
+                <h5 class="modal-title" id="deleteModalLabel"></h5>
+            </div>
+            <div class="modal-body">
+                Videojuego Eliminado
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>

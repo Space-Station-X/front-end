@@ -5,6 +5,7 @@ import { VideogameService } from '../../../service/videogame.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Videogame } from '../../../types/videogame';
 import * as bootstrap from 'bootstrap';
+import { ImgbbServiceService } from '../../../service/imgbb.service.service';
 
 
 @Component({
@@ -15,12 +16,14 @@ import * as bootstrap from 'bootstrap';
   styleUrl: './update-videogame.component.css'
 })
 export class UpdateVideogameComponent implements OnInit {
-
-
+  selectedFile: File | null = null;
+  imagenError: string | null = null;
+  imagenPreview: string | null = null;
 
   constructor(private readonly videogameService: VideogameService,
-    private readonly route : Router,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly route: Router,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly imgBBService : ImgbbServiceService
   ) { }
 
   ngOnInit(): void {
@@ -28,8 +31,7 @@ export class UpdateVideogameComponent implements OnInit {
     this.videogameService.getVideogameById(id).subscribe(
       (data: Videogame) => {
         this.videogameForm.patchValue(data),
-        this.videogameForm.get("id")?.setValue(Number(id));
-        //this.videogameForm.get("feReg")?.setValue(data.feReg ? new Date(data.feReg) : null);
+          this.videogameForm.get("id")?.setValue(Number(id));
       }
     )
   }
@@ -76,18 +78,44 @@ export class UpdateVideogameComponent implements OnInit {
   })
 
   updateVideogame() {
-    this.videogameService.updateVideogame(this.videogameForm.value as Videogame).subscribe(
-      () => {
-        const modal = new bootstrap.Modal(document.getElementById('modalCreate')!);
-        modal.show();
-      }
-    )
+    if (this.selectedFile) {
+      this.imgBBService.subirImagen(this.selectedFile).subscribe({
+        next: (response: any) => {
+          this.videogameForm.get("imagen")?.setValue(response.data.url);
+          this.enviarFormulario();
+        },
+        error: () => {
+          this.imagenError = 'Error al subir la imagen';
+        }
+      });
+    } else {
+      this.enviarFormulario();
+    }
   }
 
-  hideModal(){
+  private enviarFormulario() {
+    this.videogameService.updateVideogame(this.videogameForm.value as Videogame).subscribe(() => {
+      const modal = new bootstrap.Modal(document.getElementById('modalCreate')!);
+      modal.show();
+    });
+  }
+  hideModal() {
     const modal = bootstrap.Modal.getInstance(document.getElementById('modalCreate')!);
     modal?.hide();
     this.route.navigate(["/userHome/1"]);
   }
 
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    this.imagenError = null;
+
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagenPreview = reader.result as string;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+  
 }

@@ -1,70 +1,70 @@
 <div class="container mt-4 mb-5">
-    <h2 class="text-center">Actualizar Videojuego</h2>
-  
-    <form [formGroup]="videogameForm" (ngSubmit)="updateVideogame()">
-      <div class="mb-3">
-        <label class="form-label">Nombre</label>
-        <input type="text" class="form-control" formControlName="nombre" required placeholder="Ingrese el nombre"
-        [ngClass]="{ 'is-invalid': videogameForm.get('nombre')?.invalid && videogameForm.get('nombre')?.touched,'is-valid' : videogameForm.get('nombre')?.valid }"
-        />
-      </div>
-  
-      <div class="mb-3">
-        <label class="form-label">Descripción</label>
-        <textarea class="form-control" formControlName="descripcion" placeholder="Ingrese la descripción"
-        [ngClass]="{ 'is-invalid': videogameForm.get('descripcion')?.invalid && videogameForm.get('descripcion')?.touched,'is-valid' : videogameForm.get('descripcion')?.valid }"
-        ></textarea>
-      </div>
-  
-      <div class="mb-3">
-        <label class="form-label">Plataforma</label>
-        <input type="text" class="form-control" formControlName="plataforma" placeholder="Ingrese la plataforma"
-        [ngClass]="{ 'is-invalid': videogameForm.get('plataforma')?.invalid && videogameForm.get('plataforma')?.touched,'is-valid' : videogameForm.get('plataforma')?.valid }"
-        />
-      </div>
-  
-      <div class="mb-3">
-        <label class="form-label">Género</label>
-        <input type="text" class="form-control" formControlName="genero" placeholder="Ingrese el género"
-        [ngClass]="{ 'is-invalid': videogameForm.get('genero')?.invalid && videogameForm.get('genero')?.touched,'is-valid' : videogameForm.get('genero')?.valid }"
-        />
-      </div>
-  
-      <div class="mb-3">
-        <label class="form-label">Copias Disponibles</label>
-        <input type="number" class="form-control" formControlName="nuCopias" placeholder="Ingrese el número de copias disponibles"
-        [ngClass]="{ 'is-invalid': videogameForm.get('nuCopias')?.invalid && videogameForm.get('nuCopias')?.touched,'is-valid' : videogameForm.get('nuCopias')?.valid }"
-        />
-      </div>
-  
-      <div class="mb-3">
-        <label class="form-label">Precio</label>
-        <input type="number" class="form-control" formControlName="precio" placeholder="Ingrese el precio"
-        [ngClass]="{ 'is-invalid': videogameForm.get('precio')?.invalid && videogameForm.get('precio')?.touched,'is-valid' : videogameForm.get('precio')?.valid }"
-        />
-      </div>
-  
-      <div class="text-center">
-        <button type="submit" class="btn btn-success" [disabled]="videogameForm.invalid">Actualizar</button>
-        <button type="button" class="btn btn-secondary ms-2" routerLink="/userHome/1" >Cancelar</button>
-      </div>
-    </form>
-  </div>
+  <h2 class="text-center">Actualizar Videojuego</h2>
 
-  <!-- Modal -->
+  <form [formGroup]="videogameForm" (ngSubmit)="updateVideogame()">
+    <div class="mb-3">
+      <label class="form-label">Nombre</label>
+      <input type="text" class="form-control" formControlName="nombre" required placeholder="Ingrese el nombre"
+        [ngClass]="{ 'is-invalid': videogameForm.get('nombre')?.invalid && videogameForm.get('nombre')?.touched,'is-valid' : videogameForm.get('nombre')?.valid }" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Descripción</label>
+      <textarea class="form-control" formControlName="descripcion" placeholder="Ingrese la descripción"
+        [ngClass]="{ 'is-invalid': videogameForm.get('descripcion')?.invalid && videogameForm.get('descripcion')?.touched,'is-valid' : videogameForm.get('descripcion')?.valid }"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Plataforma</label>
+      <input type="text" class="form-control" formControlName="plataforma" placeholder="Ingrese la plataforma"
+        [ngClass]="{ 'is-invalid': videogameForm.get('plataforma')?.invalid && videogameForm.get('plataforma')?.touched,'is-valid' : videogameForm.get('plataforma')?.valid }" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Género</label>
+      <input type="text" class="form-control" formControlName="genero" placeholder="Ingrese el género"
+        [ngClass]="{ 'is-invalid': videogameForm.get('genero')?.invalid && videogameForm.get('genero')?.touched,'is-valid' : videogameForm.get('genero')?.valid }" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Copias Disponibles</label>
+      <input type="number" class="form-control" formControlName="nuCopias"
+        placeholder="Ingrese el número de copias disponibles"
+        [ngClass]="{ 'is-invalid': videogameForm.get('nuCopias')?.invalid && videogameForm.get('nuCopias')?.touched,'is-valid' : videogameForm.get('nuCopias')?.valid }" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Precio</label>
+      <input type="number" class="form-control" formControlName="precio" placeholder="Ingrese el precio"
+        [ngClass]="{ 'is-invalid': videogameForm.get('precio')?.invalid && videogameForm.get('precio')?.touched,'is-valid' : videogameForm.get('precio')?.valid }" />
+    </div>
+
+    <div class="mb-3">
+      <label for="imagen">Seleccionar imagen:</label>
+      <input id="imagen" type="file" (change)="onFileSelected($event)" class="form-control mb-3" >
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-success" [disabled]="videogameForm.invalid">Actualizar</button>
+      <button type="button" class="btn btn-secondary ms-2" routerLink="/userHome/1">Cancelar</button>
+    </div>
+  </form>
+</div>
+
+<!-- Modal -->
 <div class="modal fade " id="modalCreate" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content ">
-        <div class="modal-header text-bg-primary">
-          <h5 class="modal-title" id="successModalLabel">Éxito</h5>
-        </div>
-        <div class="modal-body">
-          ¡Videojuego Actualizado!
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="hideModal()">Aceptar</button>
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header text-bg-primary">
+        <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+      </div>
+      <div class="modal-body">
+        ¡Videojuego Actualizado!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="hideModal()">Aceptar</button>
       </div>
     </div>
   </div>
-  
+</div>
+
