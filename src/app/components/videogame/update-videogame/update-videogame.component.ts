@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VideogameService } from '../../../service/videogame.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -20,18 +20,22 @@ export class UpdateVideogameComponent implements OnInit {
   imagenError: string | null = null;
   imagenPreview: string | null = null;
 
-  constructor(private readonly videogameService: VideogameService,
-    private readonly route: Router,
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly imgBBService : ImgbbServiceService
+  homeRoute = inject(ActivatedRoute);
+  videogameService = inject(VideogameService);
+  route = inject(Router)
+
+  userId = this.homeRoute.parent?.snapshot.params['userId'] ;
+  videogameId = this.homeRoute.snapshot.params['id'] ;
+  
+  constructor(
+    private readonly imgBBService: ImgbbServiceService
   ) { }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params["id"];
-    this.videogameService.getVideogameById(id).subscribe(
+    this.videogameService.getVideogameById(this.videogameId).subscribe(
       (data: Videogame) => {
         this.videogameForm.patchValue(data),
-          this.videogameForm.get("id")?.setValue(Number(id));
+          this.videogameForm.get("id")?.setValue(Number(this.videogameId));
       }
     )
   }
@@ -102,7 +106,7 @@ export class UpdateVideogameComponent implements OnInit {
   hideModal() {
     const modal = bootstrap.Modal.getInstance(document.getElementById('modalCreate')!);
     modal?.hide();
-    this.route.navigate(["/userHome/1"]);
+    this.route.navigate(["/userHome/"+this.userId]);
   }
 
   onFileSelected(event: any) {
@@ -117,5 +121,5 @@ export class UpdateVideogameComponent implements OnInit {
       reader.readAsDataURL(this.selectedFile);
     }
   }
-  
+
 }

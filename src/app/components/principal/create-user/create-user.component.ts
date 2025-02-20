@@ -1,34 +1,23 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserService } from '../../../service/user.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { User } from '../../../types/user';
+import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import * as bootstrap from 'bootstrap';
+import { User } from '../../../types/user';
 
 @Component({
-  selector: 'app-update-user',
+  selector: 'app-create-user',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule , RouterLink],
-  templateUrl: './update-user.component.html',
-  styleUrl: './update-user.component.css'
+  templateUrl: './create-user.component.html',
+  styleUrl: './create-user.component.css'
 })
-export class UpdateUserComponent implements OnInit {
+export class CreateUserComponent {
 
-  user: User = {} as User
   userService = inject(UserService)
-  homeRoute = inject(ActivatedRoute)
   route = inject(Router)
-  userId = this.homeRoute.parent?.snapshot.params['userId']
 
-  ngOnInit(): void {
-    this.userService.geUserById(this.userId).subscribe(
-      (data) => {
-        this.userForm.patchValue(data)
-        this.userForm.get("id")?.setValue(Number(this.userId))
-      }
-    )
-  }
 
   userForm = new FormGroup({
     id: new FormControl<number | null>(null),
@@ -42,35 +31,40 @@ export class UpdateUserComponent implements OnInit {
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(100),
-      Validators.pattern("^[a-zA-Z\\s]+$")
+      Validators.pattern("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ \"'.,:-]+$")
     ]),
     phone: new FormControl<string | null>(null, [
       Validators.required,
       Validators.pattern("^[0-9]{9}$")
     ]),
-    registrationDate: new FormControl<Date | null>(null, [
+    registrationDate: new FormControl<string | Date | null>(new Date().toISOString(), [
       Validators.required
     ]),
     isActive: new FormControl<string | null>("S", [
       Validators.required,
     ]),
-    password: new FormControl<string | null>(null),
-    email : new FormControl<string | null>(null)
+    password: new FormControl<string | null>(null, [
+      Validators.required,
+    ]),
+    email: new FormControl<string | null>(null, [
+      Validators.required,
+      Validators.email
+    ])
   })
 
   onSubmit() {
-    this.userService.updateUser(this.userForm.value as User).subscribe(
+    this.userService.createUser(this.userForm.value as User).subscribe(
       () => {
-        const modal = new bootstrap.Modal(document.getElementById('modalUpdate')!)
+        const modal = new bootstrap.Modal(document.getElementById("modalRegistro")!)
         modal.show()
       }
     )
   }
 
   hideModal() {
-    const modal = bootstrap.Modal.getInstance(document.getElementById('modalUpdate')!)
+    const modal = bootstrap.Modal.getInstance(document.getElementById("modalRegistro")!)
     modal?.hide()
-    this.route.navigate(["/userHome/"+this.userId])
+    this.route.navigate(['/']);
   }
 
 }

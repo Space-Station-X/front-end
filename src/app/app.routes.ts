@@ -10,24 +10,30 @@ import { UserNavbarComponent } from './components/user/user-navbar/user-navbar.c
 import { GetVideogameComponent } from './components/videogame/get-videogame/get-videogame.component';
 import { CreateVideogameComponent } from './components/videogame/create-videogame/create-videogame.component';
 import { authGuard } from './guard/auth.guard';
+import { CreateUserComponent } from './components/principal/create-user/create-user.component';
 
 export const routes: Routes = [
     {
         path: "",
         component: HomeComponent,
-        children: [{ path: "login", component: LoginComponent }, { path: "", component: AboutUsComponent }]
+        children: [
+            { path: "login", component: LoginComponent },
+            { path: "", component: AboutUsComponent },
+            { path: "createUser", component: CreateUserComponent }
+        ]
     },
+
     {
         path: "userHome/:userId",
         component: UserNavbarComponent,
-        canActivate : [authGuard],
+        canActivate: [authGuard],
         children: [
             { path: "", component: UserHomeComponent },
             { path: "update", component: UpdateUserComponent },
             { path: "get", component: GetUserComponent },
-            { path: "videogame/:id",component: GetVideogameComponent},
+            { path: "videogame/:id", component: GetVideogameComponent },
             { path: "updateVideogame/:id", component: UpdateVideogameComponent },
-            { path: "createVideogame" , component: CreateVideogameComponent}
+            { path: "createVideogame", component: CreateVideogameComponent }
         ]
     }
 ];

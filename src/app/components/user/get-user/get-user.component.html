@@ -1,1 +1,38 @@
-<p>get-user works!</p>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 ">
+            <div class="card shadow border-0 rounded-3">
+                <div class="card-header bg-primary text-white text-center">
+                    <h5 class="mb-0">Información del Usuario</h5>
+                </div>
+                <div class="card-body p-4">
+                    <ul class="list-group list-group-flush">
+
+                        <li class="list-group-item">
+                            <strong class="text-primary">Usuario:</strong> {{ getUser.username }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-primary">Email:</strong> {{ getUser.email }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-primary">Nombre Completo:</strong> {{ getUser.fullName }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-primary">Teléfono:</strong> {{ getUser.phone }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-primary">Fecha de Registro:</strong>
+                            {{ getUser.registrationDate | date:'dd/MM/yyyy HH:mm' }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-primary">Activo:</strong>
+                            <span>
+                                {{ getUser.isActive === 'S' ? 'Sí' : 'No' }}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
