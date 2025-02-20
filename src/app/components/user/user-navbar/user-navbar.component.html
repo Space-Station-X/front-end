@@ -17,10 +17,26 @@
             <a class="nav-link" routerLink="update" >Actualizar Datos</a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" routerLink="" >Cerrar Sesión</a>
+            <button class="nav-link"  (click)="logout()">Cerrar Sesion</button>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+  <div class="modal fade " id="modalLogOut" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content ">
+        <div class="modal-header text-bg-primary">
+          <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+        </div>
+        <div class="modal-body">
+          ¿Estas seguro de cerrar Sesion ? 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="hideModal()">Aceptar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <router-outlet></router-outlet>

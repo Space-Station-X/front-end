@@ -9,6 +9,7 @@ import { UpdateVideogameComponent } from './components/videogame/update-videogam
 import { UserNavbarComponent } from './components/user/user-navbar/user-navbar.component';
 import { GetVideogameComponent } from './components/videogame/get-videogame/get-videogame.component';
 import { CreateVideogameComponent } from './components/videogame/create-videogame/create-videogame.component';
+import { authGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
     {
@@ -19,6 +20,7 @@ export const routes: Routes = [
     {
         path: "userHome/:userId",
         component: UserNavbarComponent,
+        canActivate : [authGuard],
         children: [
             { path: "", component: UserHomeComponent },
             { path: "update", component: UpdateUserComponent },
