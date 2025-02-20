@@ -1,0 +1,15 @@
+.login-container {
+  display: flex;
+  
+}
+
+.login {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
