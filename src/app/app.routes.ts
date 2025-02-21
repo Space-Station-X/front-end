@@ -11,6 +11,10 @@ import { GetVideogameComponent } from './components/videogame/get-videogame/get-
 import { CreateVideogameComponent } from './components/videogame/create-videogame/create-videogame.component';
 import { authGuard } from './guard/auth.guard';
 import { CreateUserComponent } from './components/principal/create-user/create-user.component';
+import { NavbarClientComponent } from './components/client/navbar-client/navbar-client.component';
+import { HomeClientComponent } from './components/client/home-client/home-client.component';
+import { UpdateClientComponent } from './components/client/update-client/update-client.component';
+import { GetClientComponent } from './components/client/get-client/get-client.component';
 
 export const routes: Routes = [
     {
@@ -34,6 +38,15 @@ export const routes: Routes = [
             { path: "videogame/:id", component: GetVideogameComponent },
             { path: "updateVideogame/:id", component: UpdateVideogameComponent },
             { path: "createVideogame", component: CreateVideogameComponent }
+        ]
+    },
+    {
+        path: "clientHome/:clientId",
+        component: NavbarClientComponent,
+        children: [
+            { path: "", component: HomeClientComponent },
+            { path: "update", component: UpdateClientComponent },
+            { path: "get", component: GetClientComponent }
         ]
     }
 ];

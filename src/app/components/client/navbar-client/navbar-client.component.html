@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <!-- Enlace de inicio -->
+      <a class="nav-link text-white" routerLink="/clientHome/1">Inicio</a>
+  
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="get">Ver Datos</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link" routerLink="update">Actualizar Datos</a>
+          </li>
+        -->
+          <li class="nav-item">
+            <a class="nav-link text-danger" (click)="logout()" >Cerrar Sesión</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <div class="modal fade " id="modalLogOut" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content ">
+          <div class="modal-header text-bg-secondary">
+            <h5 class="modal-title" id="successModalLabel">Advertencia</h5>
+          </div>
+          <div class="modal-body">
+            ¿Estas seguro de cerrar Sesion ? 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="hideModal()">Aceptar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <router-outlet></router-outlet>

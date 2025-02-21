@@ -24,7 +24,7 @@ export class LoginComponent {
       (response: any) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('userId', response.id);
-        this.router.navigate(['/userHome/' + response.id]);
+        this.router.navigate(['/clientHome/' + response.id]);
       },
       (error) => {
         this.errorMessage = "Correo o contraseña incorrectos"
