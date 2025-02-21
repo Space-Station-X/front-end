@@ -17,12 +17,13 @@ export class GetClientComponent implements OnInit {
 
   clientService = inject(ClientService)
   homeRoute = inject(ActivatedRoute)
-  clientId = this.homeRoute.snapshot.params['clientId']
+  clientId = this.homeRoute.parent?.snapshot.params['clientId']
 
   ngOnInit(): void {
     this.clientService.getClientById(this.clientId).subscribe(
-      (data : Client) => { this.getClient = data }
-    )
+    (data) => { this.getClient = data }
+   )
+   
   }
 
 
