@@ -1,9 +1,10 @@
 export interface Client {
-    id : number,
-    dni : string,
-    name : string,
-    lastName : string,
-    email : string,
-    phone : string,
-    fe_reg : string,
+    id: number
+    typeDocument: string
+    numberDocument: string
+    numberDate: any
+    registerDate: any
+    isActive: number
+    phone: string
+    email: string
 }

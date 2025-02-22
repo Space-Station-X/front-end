@@ -7,12 +7,12 @@
                 </div>
                 <div class="card-body">
                     <p><strong>ID:</strong> {{ getClient.id }}</p>
-                    <p><strong>DNI:</strong> {{ getClient.dni }}</p>
-                    <p><strong>Nombre:</strong> {{ getClient.name }}</p>
-                    <p><strong>Apellido:</strong> {{ getClient.lastName }}</p>
+                    <p><strong>DNI:</strong> {{ getClient.email }}</p>
+                    <p><strong>Nombre:</strong> {{ getClient.numberDocument }}</p>
+                    <p><strong>Apellido:</strong> {{ getClient.isActive }}</p>
                     <p><strong>Email:</strong> {{ getClient.email }}</p>
                     <p><strong>Teléfono:</strong> {{ getClient.phone }}</p>
-                    <p><strong>Fecha de Registro:</strong> {{ getClient.fe_reg | date:'dd/MM/yyyy HH:mm' }}</p>
+                    <p><strong>Fecha de Registro:</strong> {{ getClient.registerDate| date:'dd/MM/yyyy HH:mm' }}</p>
                 </div>
                 
             </div>
