@@ -15,6 +15,8 @@ import { NavbarClientComponent } from './components/client/navbar-client/navbar-
 import { HomeClientComponent } from './components/client/home-client/home-client.component';
 import { UpdateClientComponent } from './components/client/update-client/update-client.component';
 import { GetClientComponent } from './components/client/get-client/get-client.component';
+import { GetSalesComponent } from './components/user/get-sales/get-sales.component';
+import { GenerateSaleComponent } from './components/client/generate-sale/generate-sale.component';
 
 export const routes: Routes = [
     {
@@ -35,6 +37,7 @@ export const routes: Routes = [
             { path: "", component: UserHomeComponent },
             { path: "update", component: UpdateUserComponent },
             { path: "get", component: GetUserComponent },
+            { path: "sales",component:GetSalesComponent},
             { path: "videogame/:id", component: GetVideogameComponent },
             { path: "updateVideogame/:id", component: UpdateVideogameComponent },
             { path: "createVideogame", component: CreateVideogameComponent }
@@ -43,10 +46,12 @@ export const routes: Routes = [
     {
         path: "clientHome/:clientId",
         component: NavbarClientComponent,
+        canActivate: [authGuard],
         children: [
             { path: "", component: HomeClientComponent },
             { path: "update", component: UpdateClientComponent },
-            { path: "get", component: GetClientComponent }
+            { path: "get", component: GetClientComponent },
+            { path: "generateSale/:id", component : GenerateSaleComponent}
         ]
     }
 ];

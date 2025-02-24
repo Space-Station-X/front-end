@@ -1,8 +1,14 @@
 <div class="container-fluid fondo vh-100">
   <h3 class="text-center pt-5">Bienvenido {{this.nameUser | titlecase}}</h3>
-  <div class=" text-end">
-    <button class="btn btn-primary" routerLink="/userHome/{{this.userId}}/createVideogame">CREAR VIDEOJUEGO</button>
+  <div class="d-flex justify-content-end gap-3 mt-3">
+    <button class="btn btn-success d-flex align-items-center gap-2" routerLink="/userHome/{{userId}}/createVideogame">
+      Crear Videojuego
+    </button>
+    <button class="btn btn-info d-flex align-items-center gap-2" routerLink="/userHome/{{userId}}/sales">Ver
+      Ventas
+    </button>
   </div>
+
   <table class="table table-striped table-hover mt-4">
     <thead class="table-dark text-uppercase">
       <tr>

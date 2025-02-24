@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ClientService } from '../../../service/client.service';
 import { VideogameService } from '../../../service/videogame.service';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, RouterLink} from '@angular/router';
 import { Client } from '../../../types/client';
 import { Videogame } from '../../../types/videogame';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-home-client',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './home-client.component.html',
   styleUrl: './home-client.component.css'
 })

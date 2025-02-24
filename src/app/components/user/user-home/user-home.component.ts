@@ -13,8 +13,7 @@ import { UserService } from '../../../service/user.service';
   styleUrl: './user-home.component.css'
 })
 export class UserHomeComponent implements OnInit {
-  videojuegos: Videogame[] = []
-
+  videojuegos: Videogame[] = [];
   videogameService = inject(VideogameService);
   route = inject(ActivatedRoute);
   userId = this.route.snapshot.params['userId'];
