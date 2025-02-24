@@ -9,22 +9,17 @@ import * as bootstrap from 'bootstrap';
 @Component({
   selector: 'app-user-navbar',
   standalone: true,
-  imports: [RouterLink, RouterOutlet, TitleCasePipe, CommonModule],
+  imports: [RouterLink, RouterOutlet, CommonModule],
   templateUrl: './user-navbar.component.html',
   styleUrl: './user-navbar.component.css'
 })
-export class UserNavbarComponent implements OnInit {
-
-  user: User = {} as User;
+export class UserNavbarComponent  {
 
   authService = inject(AuthService);
   router = inject(Router);
   activatedRoute = inject(ActivatedRoute);
+  userId = this.activatedRoute.snapshot.params['userId'];
 
-  ngOnInit(): void {
-    const userId = this.activatedRoute.snapshot.params['userId'];
-
-  }
   logout() {
     const modal = new bootstrap.Modal(document.getElementById('modalLogOut')!)
     modal.show();

@@ -18,10 +18,13 @@
   background: url('https://i.ibb.co/4g0ZzFpB/portada.webp');
 }
 
-  
-  .card-img-top {
-    height: 200px;
-    object-fit: cover;
-  }
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
 
+.img-size {
+  max-width: 100%;
+  height: auto;
 
+}

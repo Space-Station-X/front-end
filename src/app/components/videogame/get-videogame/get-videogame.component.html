@@ -13,7 +13,7 @@
                             <p><strong>Género: </strong>{{ getVideojuego.genero }}</p>
                             <p><strong>Copias Disponibles: </strong>{{ getVideojuego.nuCopias }}</p>
                             <p><strong>Registrado el: </strong>{{ getVideojuego.feReg }}</p>
-                            <p><strong>Precio: </strong>{{ getVideojuego.precio | currency }}</p>
+                            <p><strong>Precio: S/</strong>{{ getVideojuego.precio  }}</p>
                         </div>
                     </div>
 
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-around">
-                    <button class="btn btn-success w-25" routerLink="/userHome/1/updateVideogame/{{getVideojuego.id}}">Actualizar</button>
+                    <button class="btn btn-success w-25" routerLink="/userHome/{{this.userId}}/updateVideogame/{{getVideojuego.id}}">Actualizar</button>
                     <button class="btn btn-danger w-25" type="button" (click)="modalDelete()">Eliminar</button>
                 </div>
             </div>

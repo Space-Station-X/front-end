@@ -1,4 +1,12 @@
-a:hover {
-    color: #000000;
-    font-weight: bolder;
-  }
+
+.navbar .nav-link {
+  display: inline-block;
+  font-size: 18px;
+  transition: font-size 0.2s ease, transform 0.2s ease;
+  color: white !important;
+}
+
+.navbar .nav-link:hover {
+  font-size: 1.5rem;
+  transform: translateY(-3px);
+}

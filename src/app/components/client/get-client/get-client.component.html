@@ -1,0 +1,22 @@
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card m-3">
+                <div class="card-header text-bg-primary text-white">
+                    <h5 class="mb-0">Detalles del Cliente</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>ID:</strong> {{ getClient.id }}</p>
+                    <p><strong>DNI:</strong> {{ getClient.email }}</p>
+                    <p><strong>Nombre:</strong> {{ getClient.numberDocument }}</p>
+                    <p><strong>Apellido:</strong> {{ getClient.isActive }}</p>
+                    <p><strong>Email:</strong> {{ getClient.email }}</p>
+                    <p><strong>Teléfono:</strong> {{ getClient.phone }}</p>
+                    <p><strong>Fecha de Registro:</strong> {{ getClient.registerDate| date:'dd/MM/yyyy HH:mm' }}</p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+

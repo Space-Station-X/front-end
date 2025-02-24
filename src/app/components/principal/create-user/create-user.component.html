@@ -1,0 +1,93 @@
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-white bg-primary">
+                    <h4>REGISTRAR USUARIO</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" autocomplete="off">
+                        <!-- Usuario -->
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Usuario</label>
+                            <input id="username" type="text" class="form-control" formControlName="username" [ngClass]="{ 'is-invalid': userForm.get('username')?.invalid && userForm.get('username')?.touched, 
+                   'is-valid': userForm.get('username')?.valid }">
+                            <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched"
+                                class="invalid-feedback">
+                                <small>El usuario es obligatorio (mínimo 3 caracteres).</small>
+                            </div>
+                        </div>
+
+                        <!-- Nombre Completo -->
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Nombre Completo</label>
+                            <input id="fullName" type="text" class="form-control" formControlName="fullName" [ngClass]="{ 'is-invalid': userForm.get('fullName')?.invalid && userForm.get('fullName')?.touched, 
+                   'is-valid': userForm.get('fullName')?.valid }">
+                            <div *ngIf="userForm.get('fullName')?.invalid && userForm.get('fullName')?.touched"
+                                class="invalid-feedback">
+                                <small>Ingrese un nombre válido.</small>
+                            </div>
+                        </div>
+
+                        <!-- Teléfono -->
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Teléfono</label>
+                            <input id="phone" type="text" class="form-control" formControlName="phone" [ngClass]="{ 'is-invalid': userForm.get('phone')?.invalid && userForm.get('phone')?.touched, 
+                   'is-valid': userForm.get('phone')?.valid }">
+                            <div *ngIf="userForm.get('phone')?.invalid && userForm.get('phone')?.touched"
+                                class="invalid-feedback">
+                                <small>El teléfono debe tener 9 dígitos.</small>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input id="email" type="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': userForm.get('email')?.invalid && userForm.get('email')?.touched, 
+                   'is-valid': userForm.get('email')?.valid }">
+                            <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+                                class="invalid-feedback">
+                                <small>Ingrese un email válido.</small>
+                            </div>
+                        </div>
+
+                        <!-- Contraseña -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input id="password" type="password" class="form-control" formControlName="password"
+                                [ngClass]="{ 'is-invalid': userForm.get('password')?.invalid && userForm.get('password')?.touched, 
+                   'is-valid': userForm.get('password')?.valid }">
+                            <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched"
+                                class="invalid-feedback">
+                                <small>La contraseña es obligatoria.</small>
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Registrar</button>
+                            <button type="button" class="btn btn-secondary ms-2" routerLink="/">Cancelar</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="modalRegistro" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content ">
+        <div class="modal-header text-bg-primary">
+          <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+        </div>
+        <div class="modal-body">
+          Usuario Creado!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="hideModal()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>

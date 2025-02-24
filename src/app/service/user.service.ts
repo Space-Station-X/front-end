@@ -6,7 +6,7 @@ import { User } from '../types/user';
   providedIn: 'root'
 })
 export class UserService {
-  url = "http://localhost:8080/api/v1";
+  url = "http://localhost:3000";
   constructor(private readonly http: HttpClient) { }
 
   getUser(){
@@ -22,7 +22,7 @@ export class UserService {
   }
 
   updateUser(user : User){
-    return this.http.put<User>(`${this.url}/users/${user.userId}`, user);
+    return this.http.put<User>(`${this.url}/users/${user.id}`, user);
   }
 
   deleteUser(id : number){

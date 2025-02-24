@@ -1,19 +1,21 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:9090/auth';
+  //'http://localhost:9090/api/v1/'
+  private apiUrl = 'http://localhost:9090/' ;
 
   http = inject(HttpClient);
 
   isLoggedIn = signal(!!localStorage.getItem('token')); // Estado reactivo
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials);
+    return this.http.post(`${this.apiUrl}auth/login`, credentials);
   }
 
   logout() {

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VideogameService } from '../../../service/videogame.service';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ImgbbServiceService } from '../../../service/imgbb.service.service';
 import { Videogame } from '../../../types/videogame';
 import * as bootstrap from 'bootstrap';
@@ -18,6 +18,9 @@ export class CreateVideogameComponent {
   selectedFile: File | null = null;
   imagenError: string | null = null;
   imagenPreview: string | null = null;
+
+  homeRoute = inject(ActivatedRoute);
+  userId = this.homeRoute.parent?.snapshot.params['userId'];
 
   constructor(private readonly videogameService: VideogameService,
     private readonly route: Router,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Videogame } from '../../../types/videogame';
 import { VideogameService } from '../../../service/videogame.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -14,13 +14,15 @@ import * as bootstrap from 'bootstrap';
 export class GetVideogameComponent implements OnInit {
   getVideojuego: Videogame = {} as Videogame;
 
-  constructor(private readonly videogameService: VideogameService, private readonly activatedRoute: ActivatedRoute ,
-    private readonly route:Router
-  ) { }
+  homeRoute = inject(ActivatedRoute);
+  videogameService = inject(VideogameService);
+  route = inject(Router);
 
+  userId = this.homeRoute.parent?.snapshot.params['userId'];
+  videogameId = this.homeRoute.snapshot.params['id'];
+  
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['id'];
-    this.videogameService.getVideogameById(id).subscribe(data => {
+    this.videogameService.getVideogameById(this.videogameId).subscribe(data => {
       this.getVideojuego = data;
     });
   }

@@ -10,24 +10,48 @@ import { UserNavbarComponent } from './components/user/user-navbar/user-navbar.c
 import { GetVideogameComponent } from './components/videogame/get-videogame/get-videogame.component';
 import { CreateVideogameComponent } from './components/videogame/create-videogame/create-videogame.component';
 import { authGuard } from './guard/auth.guard';
+import { CreateUserComponent } from './components/principal/create-user/create-user.component';
+import { NavbarClientComponent } from './components/client/navbar-client/navbar-client.component';
+import { HomeClientComponent } from './components/client/home-client/home-client.component';
+import { UpdateClientComponent } from './components/client/update-client/update-client.component';
+import { GetClientComponent } from './components/client/get-client/get-client.component';
+import { GetSalesComponent } from './components/user/get-sales/get-sales.component';
+import { GenerateSaleComponent } from './components/client/generate-sale/generate-sale.component';
 
 export const routes: Routes = [
     {
         path: "",
         component: HomeComponent,
-        children: [{ path: "login", component: LoginComponent }, { path: "", component: AboutUsComponent }]
+        children: [
+            { path: "login", component: LoginComponent },
+            { path: "", component: AboutUsComponent },
+            { path: "createUser", component: CreateUserComponent }
+        ]
     },
+
     {
         path: "userHome/:userId",
         component: UserNavbarComponent,
-        canActivate : [authGuard],
+        canActivate: [authGuard],
         children: [
             { path: "", component: UserHomeComponent },
             { path: "update", component: UpdateUserComponent },
             { path: "get", component: GetUserComponent },
-            { path: "videogame/:id",component: GetVideogameComponent},
+            { path: "sales",component:GetSalesComponent},
+            { path: "videogame/:id", component: GetVideogameComponent },
             { path: "updateVideogame/:id", component: UpdateVideogameComponent },
-            { path: "createVideogame" , component: CreateVideogameComponent}
+            { path: "createVideogame", component: CreateVideogameComponent }
+        ]
+    },
+    {
+        path: "clientHome/:clientId",
+        component: NavbarClientComponent,
+        canActivate: [authGuard],
+        children: [
+            { path: "", component: HomeClientComponent },
+            { path: "update", component: UpdateClientComponent },
+            { path: "get", component: GetClientComponent },
+            { path: "generateSale/:id", component : GenerateSaleComponent}
         ]
     }
 ];
