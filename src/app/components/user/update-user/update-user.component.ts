@@ -38,7 +38,7 @@ export class UpdateUserComponent implements OnInit {
       Validators.maxLength(150),
       Validators.pattern("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ \"'.,:-]+$")
     ]),
-    fullName: new FormControl<string | null>(null, [
+    fullname: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(100),

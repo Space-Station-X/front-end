@@ -1,31 +1,34 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { User } from '../types/user';
+import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  url = "http://localhost:3000";
-  constructor(private readonly http: HttpClient) { }
+  http = inject(HttpClient)
+  //"http://localhost:3000"
+  private url = environment.apiUrl ;
+
 
   getUser(){
-    return this.http.get<User[]>(`${this.url}/users`);
+    return this.http.get<User[]>(`${this.url}user`);
   }
 
   geUserById( id : number){
-    return this.http.get<User>(`${this.url}/users/${id}`);
+    return this.http.get<User>(`${this.url}user/${id}`);
   }
 
   createUser(user : User){
-    return this.http.post<User>(`${this.url}/users`, user);
+    return this.http.post<User>(`${this.url}user`, user);
   }
 
   updateUser(user : User){
-    return this.http.put<User>(`${this.url}/users/${user.id}`, user);
+    return this.http.put<User>(`${this.url}user/${user.id}`, user);
   }
 
   deleteUser(id : number){
-    return this.http.delete(`${this.url}/users/${id}`);
+    return this.http.delete(`${this.url}user/${id}`);
   }
 }

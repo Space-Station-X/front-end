@@ -15,7 +15,7 @@
         <th>N°</th>
         <th>Nombre</th>
         <th>Plataforma</th>
-        <th>Genero</th>
+        <th>Precio</th>
         <th>Número de Copias</th>
         <th></th>
       </tr>
@@ -25,7 +25,7 @@
         <td>{{ i+1 }}</td>
         <td>{{ videojuego.nombre }}</td>
         <td>{{ videojuego.plataforma }}</td>
-        <td>{{ videojuego.genero }}</td>
+        <td>S/{{ videojuego.precio }}</td>
         <td>{{ videojuego.nuCopias }}</td>
         <td>
           <button class="btn btn-primary text-end" routerLink="/userHome/{{this.userId}}/videogame/{{videojuego.id}}">

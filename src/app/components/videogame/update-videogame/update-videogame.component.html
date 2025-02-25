@@ -26,12 +26,6 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Género</label>
-              <input type="text" class="form-control" formControlName="genero" placeholder="Ingrese el género"
-                [ngClass]="{ 'is-invalid': videogameForm.get('genero')?.invalid && videogameForm.get('genero')?.touched,'is-valid' : videogameForm.get('genero')?.valid }" />
-            </div>
-
-            <div class="mb-3">
               <label class="form-label">Copias Disponibles</label>
               <input type="number" class="form-control" formControlName="nuCopias"
                 placeholder="Ingrese el número de copias disponibles"

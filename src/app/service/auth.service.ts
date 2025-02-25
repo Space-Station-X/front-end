@@ -8,14 +8,15 @@ import { environment } from '../environments/environment.development';
 })
 export class AuthService {
   //'http://localhost:9090/api/v1/'
-  private apiUrl = 'http://localhost:9090/' ;
+  //'http://localhost:9090/'
+  private apiUrl = environment.apiUrl ;
 
   http = inject(HttpClient);
 
   isLoggedIn = signal(!!localStorage.getItem('token')); // Estado reactivo
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}auth/login`, credentials);
+    return this.http.post(`${this.apiUrl}auth/login`, credentials,{withCredentials:true});
   }
 
   logout() {

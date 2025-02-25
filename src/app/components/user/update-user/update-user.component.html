@@ -28,16 +28,16 @@
                         <!-- Nombre Completo -->
                         <div class="mb-3">
                             <label class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control" formControlName="fullName" placeholder="Ingrese el nombre completo">
-                            <div *ngIf="userForm.get('fullName')?.invalid && userForm.get('fullName')?.touched"
+                            <input type="text" class="form-control" formControlName="fullname" placeholder="Ingrese el nombre completo">
+                            <div *ngIf="userForm.get('fullname')?.invalid && userForm.get('fullname')?.touched"
                                 class="text-danger">
-                                <small *ngIf="userForm.get('fullName')?.errors?.['required']">El nombre es
+                                <small *ngIf="userForm.get('fullname')?.errors?.['required']">El nombre es
                                     obligatorio.</small>
-                                <small *ngIf="userForm.get('fullName')?.errors?.['minlength']">Mínimo 2
+                                <small *ngIf="userForm.get('fullname')?.errors?.['minlength']">Mínimo 2
                                     caracteres.</small>
-                                <small *ngIf="userForm.get('fullName')?.errors?.['maxlength']">Máximo 100
+                                <small *ngIf="userForm.get('fullname')?.errors?.['maxlength']">Máximo 100
                                     caracteres.</small>
-                                <small *ngIf="userForm.get('fullName')?.errors?.['pattern']">Solo se permiten letras y
+                                <small *ngIf="userForm.get('fullname')?.errors?.['pattern']">Solo se permiten letras y
                                     espacios.</small>
                             </div>
                         </div>
