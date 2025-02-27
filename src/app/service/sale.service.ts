@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Sales } from '../types/sales';
 import { SalesDetails } from '../types/sales-details';
+import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SaleService {
-  url = "http://localhost:3010/"
+  //http://localhost:3010/
+  private url = environment.apiUrl
   http = inject(HttpClient)
   getSales() {
     return this.http.get<Sales[]>(`${this.url}ventas`);

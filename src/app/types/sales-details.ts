@@ -1,6 +1,8 @@
 export interface SalesDetails {
-    id: number;
-    saleId: number; 
+    saleDetailId: number;
+    sale:{
+      saleId: number | null;
+    }
     videoGameId: number;
     quantity: number;
     salePrice: number;

@@ -5,11 +5,12 @@ import { User } from '../../../types/user';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import * as bootstrap from 'bootstrap';
+import { LoadingComponent } from "../../modal/loading/loading.component";
 
 @Component({
   selector: 'app-update-user',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule , RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, LoadingComponent],
   templateUrl: './update-user.component.html',
   styleUrl: './update-user.component.css'
 })
@@ -20,12 +21,14 @@ export class UpdateUserComponent implements OnInit {
   homeRoute = inject(ActivatedRoute)
   route = inject(Router)
   userId = this.homeRoute.parent?.snapshot.params['userId']
+  isLoading : boolean = true
 
   ngOnInit(): void {
     this.userService.geUserById(this.userId).subscribe(
       (data) => {
         this.userForm.patchValue(data)
         this.userForm.get("id")?.setValue(Number(this.userId))
+        this.isLoading = false
       }
     )
   }

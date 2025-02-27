@@ -13,14 +13,14 @@ import * as bootstrap from 'bootstrap';
 @Component({
   selector: 'app-generate-sale',
   standalone: true,
-  imports: [ReactiveFormsModule,RouterLink,CommonModule,FormsModule],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule, FormsModule],
   templateUrl: './generate-sale.component.html',
   styleUrl: './generate-sale.component.css'
 })
 export class GenerateSaleComponent implements OnInit {
   item: Videogame = {} as Videogame
-  venta : Sales = {} as Sales
-  ventaDetalle : SalesDetails = {} as SalesDetails
+  venta: Sales = {} as Sales
+  ventaDetalle: SalesDetails = {} as SalesDetails
 
   saleService = inject(SaleService)
   videogameService = inject(VideogameService)
@@ -45,7 +45,7 @@ export class GenerateSaleComponent implements OnInit {
     }
   )
 
-  onSubmit(){
+  onSubmit() {
     this.ventaDetalle.salePrice = this.item.precio
     this.ventaDetalle.totalAmount = this.item.precio * this.ventaDetalle.quantity
     this.ventaDetalle.videoGameId = Number(this.videogameId)
@@ -54,30 +54,24 @@ export class GenerateSaleComponent implements OnInit {
     this.venta.saleDate = new Date()
     this.venta.totalAmount = this.ventaDetalle.totalAmount
     this.venta.itemCount = this.ventaDetalle.quantity
-    this.venta.userId = Number("1") 
+    this.venta.userId = Number("1")
+    this.venta.saleDetails = [this.ventaDetalle]
     //this.venta.saleDetails = [this.ventaDetalle]
 
-    
+
 
     this.saleService.createSale(this.venta).subscribe(
       data => {
-        const salesId  = data.id
-        this.ventaDetalle.saleId = salesId
-        this.saleService.createSaleDetails(this.ventaDetalle).subscribe(
-          () =>{
-          //actualizarVideojuego
-          this.item.nuCopias = this.item.nuCopias - this.venta.itemCount
-          this.videogameService.updateVideogame(this.item).subscribe()
-          //mensaje Modal
-          const modal = new bootstrap.Modal(document.getElementById("modalSale")!)
-          modal.show()
-          }
-        )
+        this.item.nuCopias = this.item.nuCopias - this.venta.itemCount
+        this.videogameService.updateVideogame(this.item).subscribe()
+        //mensaje Modal
+        const modal = new bootstrap.Modal(document.getElementById("modalSale")!)
+        modal.show()
       }
     )
   }
 
-  hideModal(){
+  hideModal() {
     const modal = bootstrap.Modal.getInstance(document.getElementById("modalSale")!)
     modal?.hide()
 

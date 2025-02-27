@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../service/auth.service';
 import { HttpHeaders } from '@angular/common/http';
+import { LoadingComponent } from "../../modal/loading/loading.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, LoadingComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -19,8 +20,10 @@ export class LoginComponent {
   errorMessage = '';
   authService = inject(AuthService);
   router = inject(Router);
+  isLoading:boolean = false
 
   login() {
+    this.isLoading = true
     this.authService.login({ email: this.email, password: this.password }).subscribe(
       (response: any) => {
         localStorage.setItem('token', response.token);
@@ -34,6 +37,7 @@ export class LoginComponent {
 
       },
       (error) => {
+        this.isLoading = false
         this.errorMessage = "Correo o contraseña incorrectos"
         this.email = ""
         this.password = ""

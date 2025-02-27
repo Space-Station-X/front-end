@@ -6,12 +6,13 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Videogame } from '../../../types/videogame';
 import * as bootstrap from 'bootstrap';
 import { ImgbbServiceService } from '../../../service/imgbb.service.service';
+import { LoadingComponent } from "../../modal/loading/loading.component";
 
 
 @Component({
   selector: 'app-update-videogame',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, LoadingComponent],
   templateUrl: './update-videogame.component.html',
   styleUrl: './update-videogame.component.css'
 })
@@ -19,6 +20,7 @@ export class UpdateVideogameComponent implements OnInit {
   selectedFile: File | null = null;
   imagenError: string | null = null;
   imagenPreview: string | null = null;
+  isLoading : boolean = true
 
   homeRoute = inject(ActivatedRoute);
   videogameService = inject(VideogameService);
@@ -37,6 +39,7 @@ export class UpdateVideogameComponent implements OnInit {
         this.videogameForm.patchValue(data)
         this.videogameForm.get("id")?.setValue(Number(this.videogameId))
         this.videogameForm.get("activo")?.setValue("S")
+        this.isLoading = false
       }
     )
   }
