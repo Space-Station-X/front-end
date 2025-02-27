@@ -4,11 +4,13 @@ import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Videogame } from '../../../types/videogame';
 import { VideogameService } from '../../../service/videogame.service';
 import { UserService } from '../../../service/user.service';
+import { flush } from '@angular/core/testing';
+import { LoadingComponent } from "../../modal/loading/loading.component";
 
 @Component({
   selector: 'app-user-home',
   standalone: true,
-  imports: [RouterLink, CommonModule, TitleCasePipe],
+  imports: [RouterLink, CommonModule, TitleCasePipe, LoadingComponent],
   templateUrl: './user-home.component.html',
   styleUrl: './user-home.component.css'
 })
@@ -19,16 +21,22 @@ export class UserHomeComponent implements OnInit {
   userId = this.route.snapshot.params['userId'];
   userService = inject(UserService)
   nameUser = ''
+  isLoading: boolean = true
 
   ngOnInit(): void {
 
     this.userService.geUserById(this.userId).subscribe(
-      (data)=>{this.nameUser = data.username}
+      (data) => { this.nameUser = data.username
+         this.isLoading = false}
     )
 
     this.videogameService.getVideogames().subscribe(
-      (data: Videogame[]) => { this.videojuegos = data }
+      (data: Videogame[]) => {
+        this.videojuegos = data
+        
+      }
     )
+    
 
   }
 }

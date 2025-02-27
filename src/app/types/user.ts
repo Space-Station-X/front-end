@@ -3,7 +3,7 @@ export interface User {
     username: string;
     password: string;
     email: string;
-    fullName: string;
+    fullname: string;
     phone: string;
     registrationDate : Date;
     isActive: string;

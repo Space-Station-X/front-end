@@ -4,10 +4,11 @@ import { VideogameService } from '../../../service/videogame.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import * as bootstrap from 'bootstrap';
+import { LoadingComponent } from "../../modal/loading/loading.component";
 @Component({
   selector: 'app-get-videogame',
   standalone: true,
-  imports: [RouterLink, CurrencyPipe, CommonModule],
+  imports: [RouterLink, CurrencyPipe, CommonModule, LoadingComponent],
   templateUrl: './get-videogame.component.html',
   styleUrl: './get-videogame.component.css'
 })
@@ -17,6 +18,7 @@ export class GetVideogameComponent implements OnInit {
   homeRoute = inject(ActivatedRoute);
   videogameService = inject(VideogameService);
   route = inject(Router);
+  isLoading : boolean = true
 
   userId = this.homeRoute.parent?.snapshot.params['userId'];
   videogameId = this.homeRoute.snapshot.params['id'];
@@ -24,6 +26,7 @@ export class GetVideogameComponent implements OnInit {
   ngOnInit(): void {
     this.videogameService.getVideogameById(this.videogameId).subscribe(data => {
       this.getVideojuego = data;
+      this.isLoading
     });
   }
 

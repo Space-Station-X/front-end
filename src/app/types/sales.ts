@@ -1,7 +1,7 @@
 import { SalesDetails } from "./sales-details";
 
 export interface Sales {
-    id: number;
+    saleId: number;
     customerId: number;
     saleDate: Date;
     totalAmount: number;

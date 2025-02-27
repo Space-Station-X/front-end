@@ -1,4 +1,5 @@
-<div class="container mt-5 mb-5">
+<app-loading *ngIf="isLoading" message="Conectando con el servidor de videojuegos..."></app-loading>
+<div *ngIf="!isLoading" class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-8 col-sm-10">
             <div class="card">
@@ -10,7 +11,6 @@
                         </div>
                         <div class="col-12 col-sm-6 mt-5">
                             <p><strong>Plataforma: </strong>{{ getVideojuego.plataforma }}</p>
-                            <p><strong>Género: </strong>{{ getVideojuego.genero }}</p>
                             <p><strong>Copias Disponibles: </strong>{{ getVideojuego.nuCopias }}</p>
                             <p><strong>Registrado el: </strong>{{ getVideojuego.feReg }}</p>
                             <p><strong>Precio: S/</strong>{{ getVideojuego.precio  }}</p>
@@ -21,9 +21,8 @@
                         <p>{{ getVideojuego.descripcion }}</p>
                     </div>
                 </div>
-                <div class="card-footer d-flex justify-content-around">
+                <div class="card-footer d-flex justify-content-center">
                     <button class="btn btn-success w-25" routerLink="/userHome/{{this.userId}}/updateVideogame/{{getVideojuego.id}}">Actualizar</button>
-                    <button class="btn btn-danger w-25" type="button" (click)="modalDelete()">Eliminar</button>
                 </div>
             </div>
         </div>

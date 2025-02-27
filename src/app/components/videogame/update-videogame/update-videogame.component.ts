@@ -6,12 +6,13 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Videogame } from '../../../types/videogame';
 import * as bootstrap from 'bootstrap';
 import { ImgbbServiceService } from '../../../service/imgbb.service.service';
+import { LoadingComponent } from "../../modal/loading/loading.component";
 
 
 @Component({
   selector: 'app-update-videogame',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, LoadingComponent],
   templateUrl: './update-videogame.component.html',
   styleUrl: './update-videogame.component.css'
 })
@@ -19,14 +20,15 @@ export class UpdateVideogameComponent implements OnInit {
   selectedFile: File | null = null;
   imagenError: string | null = null;
   imagenPreview: string | null = null;
+  isLoading : boolean = true
 
   homeRoute = inject(ActivatedRoute);
   videogameService = inject(VideogameService);
   route = inject(Router)
 
-  userId = this.homeRoute.parent?.snapshot.params['userId'] ;
-  videogameId = this.homeRoute.snapshot.params['id'] ;
-  
+  userId = this.homeRoute.parent?.snapshot.params['userId'];
+  videogameId = this.homeRoute.snapshot.params['id'];
+
   constructor(
     private readonly imgBBService: ImgbbServiceService
   ) { }
@@ -34,8 +36,10 @@ export class UpdateVideogameComponent implements OnInit {
   ngOnInit(): void {
     this.videogameService.getVideogameById(this.videogameId).subscribe(
       (data: Videogame) => {
-        this.videogameForm.patchValue(data),
-          this.videogameForm.get("id")?.setValue(Number(this.videogameId));
+        this.videogameForm.patchValue(data)
+        this.videogameForm.get("id")?.setValue(Number(this.videogameId))
+        this.videogameForm.get("activo")?.setValue("S")
+        this.isLoading = false
       }
     )
   }
@@ -49,12 +53,6 @@ export class UpdateVideogameComponent implements OnInit {
       Validators.pattern("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ \"'.,:-]+$")
     ]),
     plataforma: new FormControl<string | null>(null, [
-      Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(100),
-      Validators.pattern("^[a-zA-Z\\s]+$")
-    ]),
-    genero: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(100),
@@ -78,7 +76,8 @@ export class UpdateVideogameComponent implements OnInit {
       Validators.pattern("^[0-9]+$")
     ]),
     feReg: new FormControl<string | Date | null>(new Date().toISOString().slice(0, 10)),
-    imagen: new FormControl<string | null>(null)
+    imagen: new FormControl<string | null>(null),
+    activo: new FormControl<string | null>("S")
   })
 
   updateVideogame() {
@@ -106,7 +105,7 @@ export class UpdateVideogameComponent implements OnInit {
   hideModal() {
     const modal = bootstrap.Modal.getInstance(document.getElementById('modalCreate')!);
     modal?.hide();
-    this.route.navigate(["/userHome/"+this.userId]);
+    this.route.navigate(["/userHome/" + this.userId]);
   }
 
   onFileSelected(event: any) {

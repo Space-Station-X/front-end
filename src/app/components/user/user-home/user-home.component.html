@@ -1,4 +1,5 @@
-<div class="container-fluid fondo vh-100">
+<app-loading *ngIf="isLoading" message="Por Favor espere...."></app-loading>
+<div *ngIf="!isLoading" class="container-fluid fondo vh-100">
   <h3 class="text-center pt-5">Bienvenido {{this.nameUser | titlecase}}</h3>
   <div class="d-flex justify-content-end gap-3 mt-3">
     <button class="btn btn-success d-flex align-items-center gap-2" routerLink="/userHome/{{userId}}/createVideogame">
@@ -15,7 +16,7 @@
         <th>N°</th>
         <th>Nombre</th>
         <th>Plataforma</th>
-        <th>Genero</th>
+        <th>Precio</th>
         <th>Número de Copias</th>
         <th></th>
       </tr>
@@ -25,7 +26,7 @@
         <td>{{ i+1 }}</td>
         <td>{{ videojuego.nombre }}</td>
         <td>{{ videojuego.plataforma }}</td>
-        <td>{{ videojuego.genero }}</td>
+        <td>S/{{ videojuego.precio }}</td>
         <td>{{ videojuego.nuCopias }}</td>
         <td>
           <button class="btn btn-primary text-end" routerLink="/userHome/{{this.userId}}/videogame/{{videojuego.id}}">

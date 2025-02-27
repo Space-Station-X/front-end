@@ -41,12 +41,6 @@ export class CreateVideogameComponent {
       Validators.maxLength(100),
       Validators.pattern("^[a-zA-Z\\s]+$")
     ]),
-    genero: new FormControl<string | null>(null, [
-      Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(100),
-      Validators.pattern("^[a-zA-Z\\s]+$")
-    ]),
     descripcion: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(10),
@@ -65,7 +59,8 @@ export class CreateVideogameComponent {
       Validators.pattern("^[0-9]+$")
     ]),
     feReg: new FormControl<string | Date | null>(new Date().toISOString().slice(0, 10)),
-    imagen: new FormControl<string | null>(null)
+    imagen: new FormControl<string | null>(null),
+    activo : new FormControl<string | null>("S")
   })
 
   createVideogame() {

@@ -1,4 +1,6 @@
-<h2 class="text-center text-primary my-4">Lista de Ventas</h2>
+<app-loading *ngIf="isLoading" message="Enlazando con la base de datos..."></app-loading>
+
+<h2 *ngIf="!isLoading" class="text-center text-primary my-4">Lista de Ventas</h2>
 <div class="container-fluid">
   <ul class="list-group">
     <li *ngFor="let venta of ventas , let i = index" class="list-group-item mb-3 p-4 shadow-sm rounded">
@@ -22,7 +24,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let detalle of ventasDetailsMap.get(venta.id); let i = index">
+          <tr *ngFor="let detalle of venta.saleDetails; let i = index">
             <td>{{i + 1}}</td>
             <td>{{ getNombreVideojuego(detalle.videoGameId) }}</td>
             <td>{{ detalle.quantity }}</td>

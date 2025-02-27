@@ -1,4 +1,5 @@
-<div class="container-fluid vh-100 fondo">
+<app-loading *ngIf="isLoading" message="Validando credenciales..."></app-loading>
+<div *ngIf="!isLoading" class="container-fluid vh-100 fondo">
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-4">
       <div class="card mt-5">
@@ -15,8 +16,7 @@
             </div>
             <button type="submit" class="btn btn-primary mt-2 w-100">Iniciar Sesión</button>
           </form>
-          <p class="text-center mt-3">No tienes cuenta? <a routerLink="/createUser" >Regístrate ahora</a></p>
-          <div *ngIf="errorMessage" class="alert alert-danger">
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">
             {{ errorMessage }}
           </div>
         </div>

@@ -5,7 +5,7 @@ export interface Videogame {
     plataforma: string
     imagen: string
     nuCopias: number
-    genero: string
+    activo : string
     feReg?: Date
     precio: number
 }
