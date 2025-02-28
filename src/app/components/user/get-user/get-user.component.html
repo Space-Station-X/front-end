@@ -1,40 +1,68 @@
-<app-loading *ngIf="isLoading" message="Por favor espere."> </app-loading>
+<app-loading *ngIf="isLoading" message="Cargando información del perfil..."></app-loading>
 
-<div class="container mt-5 mb-5" *ngIf="!isLoading">
+<div class="profile-container" *ngIf="!isLoading">
+  <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8 ">
-            <div class="card shadow border-0 rounded-3">
-                <div class="card-header bg-primary text-white text-center">
-                    <h5 class="mb-0">Información del Usuario</h5>
-                </div>
-                <div class="card-body p-4">
-                    <ul class="list-group list-group-flush">
+      <div class="col-md-8">
+        <div class="profile-card">
 
-                        <li class="list-group-item">
-                            <strong class="text-primary">Usuario:</strong> {{ getUser.username }}
-                        </li>
-                        <li class="list-group-item">
-                            <strong class="text-primary">Email:</strong> {{ getUser.email }}
-                        </li>
-                        <li class="list-group-item">
-                            <strong class="text-primary">Nombre Completo:</strong> {{ getUser.fullname }}
-                        </li>
-                        <li class="list-group-item">
-                            <strong class="text-primary">Teléfono:</strong> {{ getUser.phone }}
-                        </li>
-                        <li class="list-group-item">
-                            <strong class="text-primary">Fecha de Registro:</strong>
-                            {{ getUser.registrationDate | date:'dd/MM/yyyy HH:mm' }}
-                        </li>
-                        <li class="list-group-item">
-                            <strong class="text-primary">Activo:</strong>
-                            <span>
-                                {{ getUser.isActive === 'S' ? 'Sí' : 'No' }}
-                            </span>
-                        </li>
-                    </ul>
-                </div>
+          
+          <div class="profile-header">
+            <div class="profile-avatar">
+              {{ getUser.username.charAt(0).toUpperCase() }}
             </div>
+            <h2 class="profile-title">{{ getUser.fullname }}</h2>
+            <p class="profile-subtitle">{{ getUser.email }}</p>
+            <div class="profile-decoration"></div>
+          </div>
+
+          <div class="profile-body">
+            <div class="info-group">
+              <div class="info-label">Nombre de Usuario</div>
+              <div class="info-value">
+                <i class="fas fa-user info-icon"></i>
+                {{ getUser.username }}
+              </div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Correo Electrónico</div>
+              <div class="info-value">
+                <i class="fas fa-envelope info-icon"></i>
+                {{ getUser.email }}
+              </div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Teléfono</div>
+              <div class="info-value">
+                <i class="fas fa-phone info-icon"></i>
+                {{ getUser.phone }}
+              </div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Fecha de Registro</div>
+              <div class="info-value">
+                <i class="fas fa-calendar-alt info-icon"></i>
+                {{ getUser.registrationDate | date:'dd MMMM, yyyy • HH:mm' }}
+              </div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Estado</div>
+              <div class="info-value">
+                <span
+                  class="status-badge"
+                  [ngClass]="getUser.isActive === 'S' ? 'status-active' : 'status-inactive'">
+                  <i class="fas" [ngClass]="getUser.isActive === 'S' ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                  {{ getUser.isActive === 'S' ? 'Cuenta Activa' : 'Cuenta Inactiva' }}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
