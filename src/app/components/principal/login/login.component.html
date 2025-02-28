@@ -1,26 +1,67 @@
-<app-loading *ngIf="isLoading" message="Validando credenciales..."></app-loading>
-<div *ngIf="!isLoading" class="container-fluid vh-100 fondo">
-  <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-4">
-      <div class="card mt-5">
-        <div class="card-body">
-          <h2 class="card-title text-center">LOGIN</h2>
-          <form (ngSubmit)="login()">
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="nombre@example.com" [(ngModel)]="email" required>
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="******" [(ngModel)]="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary mt-2 w-100">Iniciar Sesión</button>
-          </form>
-          <div *ngIf="errorMessage" class="alert alert-danger mt-3">
-            {{ errorMessage }}
+<app-loading
+  *ngIf="isLoading"
+  message="Validando credenciales..."
+></app-loading>
+@if (!isLoading) {
+<div class="login-page">
+  <div class="login-box shadow">
+    <div class="login-header">
+      <h2 class="text-center">Iniciar Sesión</h2>
+      <div class="login-divider"></div>
+    </div>
+    <div class="login-body">
+      <form (ngSubmit)="login()">
+        <div class="mb-4">
+          <label for="email" class="form-label">Email</label>
+          <div class="input-group modern-input">
+            <span class="input-group-text"
+              ><i class="fas fa-envelope"></i
+            ></span>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="nombre@example.com"
+              [(ngModel)]="email"
+              required
+            />
           </div>
         </div>
+        <div class="mb-4">
+          <label for="password" class="form-label">Contraseña</label>
+          <div class="input-group modern-input">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="******"
+              [(ngModel)]="password"
+              required
+            />
+            <button
+              type="button"
+              class="btn btn-password"
+              (click)="togglePasswordVisibility()"
+            >
+              <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 py-2">
+          <span>Iniciar Sesión</span>
+          <i class="fas fa-arrow-right ms-2"></i>
+        </button>
+      </form>
+      @if (errorMessage) {
+      <div class="alert alert-danger mt-3">
+        {{ errorMessage }}
       </div>
+
+      }
     </div>
   </div>
 </div>
+}

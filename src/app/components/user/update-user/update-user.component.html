@@ -1,86 +1,147 @@
-<app-loading *ngIf="isLoading" message="Conectando con el servidor..."></app-loading>
-<div *ngIf="!isLoading" class="container mt-4">
-    <div class="row justify-content-center">
+@if (isLoading) {
+  <app-loading message="Conectando con el servidor..."></app-loading>
+} @else {
+  <div class="update-container">
+    <div class="container">
+      <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white text-center">
-                    <h4>Actualizar Usuario</h4>
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-                        <!-- Usuario -->
-                        <div class="mb-3">
-                            <label class="form-label">Usuario</label>
-                            <input type="text" class="form-control" formControlName="username" placeholder="Ingrese el nombre del Usuario"
-                            [ngClass]="{ 'is-invalid': userForm.get('username')?.invalid && userForm.get('username')?.touched,'is-valid' : userForm.get('username')?.valid }"
-                            >
-                            <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched"
-                                class="text-danger">
-                                <small *ngIf="userForm.get('username')?.errors?.['required']">El usuario es
-                                    obligatorio.</small>
-                                <small *ngIf="userForm.get('username')?.errors?.['minlength']">Mínimo 3
-                                    caracteres.</small>
-                                <small *ngIf="userForm.get('username')?.errors?.['maxlength']">Máximo 150
-                                    caracteres.</small>
-                                <small *ngIf="userForm.get('username')?.errors?.['pattern']">Formato no válido.</small>
-                            </div>
-                        </div>
-
-                        <!-- Nombre Completo -->
-                        <div class="mb-3">
-                            <label class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control" formControlName="fullname" placeholder="Ingrese el nombre completo">
-                            <div *ngIf="userForm.get('fullname')?.invalid && userForm.get('fullname')?.touched"
-                                class="text-danger">
-                                <small *ngIf="userForm.get('fullname')?.errors?.['required']">El nombre es
-                                    obligatorio.</small>
-                                <small *ngIf="userForm.get('fullname')?.errors?.['minlength']">Mínimo 2
-                                    caracteres.</small>
-                                <small *ngIf="userForm.get('fullname')?.errors?.['maxlength']">Máximo 100
-                                    caracteres.</small>
-                                <small *ngIf="userForm.get('fullname')?.errors?.['pattern']">Solo se permiten letras y
-                                    espacios.</small>
-                            </div>
-                        </div>
-
-                        <!-- Teléfono -->
-                        <div class="mb-3">
-                            <label class="form-label">Teléfono</label>
-                            <input type="text" class="form-control" formControlName="phone" placeholder="Ingrese el teléfono">
-                            <div *ngIf="userForm.get('phone')?.invalid && userForm.get('phone')?.touched"
-                                class="text-danger">
-                                <small *ngIf="userForm.get('phone')?.errors?.['required']">El teléfono es
-                                    obligatorio.</small>
-                                <small *ngIf="userForm.get('phone')?.errors?.['pattern']">Debe contener exactamente 9
-                                    dígitos.</small>
-                            </div>
-                        </div>
-                        <!-- Botones -->
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success"
-                                [disabled]="userForm.invalid">Actualizar</button>
-                            <button type="button" class="btn btn-secondary ms-2" routerLink="/userHome/{{this.userId}}" >Cancelar</button>
-                        </div>
-                    </form>
-                </div>
+          <div class="update-card">
+            <div class="card-header-custom">
+              <h4>Actualizar Perfil</h4>
             </div>
-        </div>
-    </div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade " id="modalUpdate" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content ">
-        <div class="modal-header text-bg-primary">
-          <h5 class="modal-title" id="successModalLabel">Éxito</h5>
-        </div>
-        <div class="modal-body">
-          Usuario Actualizado!
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="hideModal()">Aceptar</button>
+            <div class="card-body-custom">
+              <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+                <!-- Usuario -->
+                <div class="form-group">
+                  <label class="form-label">Usuario</label>
+                  <div class="position-relative">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="username"
+                      placeholder="Ingrese el nombre del Usuario"
+                      [ngClass]="{
+                        'is-invalid': userForm.get('username')?.invalid && userForm.get('username')?.touched,
+                        'is-valid': userForm.get('username')?.valid
+                      }"
+                    >
+                    <i class="fas fa-user input-icon"></i>
+                  </div>
+
+                  @if (userForm.get('username')?.invalid && userForm.get('username')?.touched) {
+                    <div class="validation-message text-danger">
+                      <i class="fas fa-exclamation-circle"></i>
+                      @if (userForm.get('username')?.errors?.['required']) {
+                        <small>El usuario es obligatorio.</small>
+                      } @else if (userForm.get('username')?.errors?.['minlength']) {
+                        <small>Mínimo 3 caracteres.</small>
+                      } @else if (userForm.get('username')?.errors?.['maxlength']) {
+                        <small>Máximo 150 caracteres.</small>
+                      } @else if (userForm.get('username')?.errors?.['pattern']) {
+                        <small>Formato no válido.</small>
+                      }
+                    </div>
+                  }
+                </div>
+
+                <!-- Nombre Completo -->
+                <div class="form-group">
+                  <label class="form-label">Nombre Completo</label>
+                  <div class="position-relative">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="fullname"
+                      placeholder="Ingrese el nombre completo"
+                      [ngClass]="{
+                        'is-invalid': userForm.get('fullname')?.invalid && userForm.get('fullname')?.touched,
+                        'is-valid': userForm.get('fullname')?.valid
+                      }"
+                    >
+                    <i class="fas fa-id-card input-icon"></i>
+                  </div>
+
+                  @if (userForm.get('fullname')?.invalid && userForm.get('fullname')?.touched) {
+                    <div class="validation-message text-danger">
+                      <i class="fas fa-exclamation-circle"></i>
+                      @if (userForm.get('fullname')?.errors?.['required']) {
+                        <small>El nombre es obligatorio.</small>
+                      } @else if (userForm.get('fullname')?.errors?.['minlength']) {
+                        <small>Mínimo 2 caracteres.</small>
+                      } @else if (userForm.get('fullname')?.errors?.['maxlength']) {
+                        <small>Máximo 100 caracteres.</small>
+                      } @else if (userForm.get('fullname')?.errors?.['pattern']) {
+                        <small>Solo se permiten letras y espacios.</small>
+                      }
+                    </div>
+                  }
+                </div>
+
+                <!-- Teléfono -->
+                <div class="form-group">
+                  <label class="form-label">Teléfono</label>
+                  <div class="position-relative">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="phone"
+                      placeholder="Ingrese el teléfono"
+                      [ngClass]="{
+                        'is-invalid': userForm.get('phone')?.invalid && userForm.get('phone')?.touched,
+                        'is-valid': userForm.get('phone')?.valid
+                      }"
+                    >
+                    <i class="fas fa-phone input-icon"></i>
+                  </div>
+
+                  @if (userForm.get('phone')?.invalid && userForm.get('phone')?.touched) {
+                    <div class="validation-message text-danger">
+                      <i class="fas fa-exclamation-circle"></i>
+                      @if (userForm.get('phone')?.errors?.['required']) {
+                        <small>El teléfono es obligatorio.</small>
+                      } @else if (userForm.get('phone')?.errors?.['pattern']) {
+                        <small>Debe contener exactamente 9 dígitos.</small>
+                      }
+                    </div>
+                  }
+                </div>
+
+                <!-- Botones -->
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-update" [disabled]="userForm.invalid">
+                    <i class="fas fa-check-circle me-2"></i>Actualizar
+                  </button>
+                  <button type="button" class="btn btn-cancel" [routerLink]="['/userHome', userId]">
+                    <i class="fas fa-times-circle me-2"></i>Cancelar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+}
+
+<!-- Modal -->
+<div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title w-100" id="successModalLabel">Actualización Exitosa</h5>
+      </div>
+      <div class="modal-body">
+        <div class="success-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <p>¡Tu perfil ha sido actualizado correctamente!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn modal-btn" (click)="hideModal()">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -20,7 +20,12 @@ export class LoginComponent {
   errorMessage = '';
   authService = inject(AuthService);
   router = inject(Router);
-  isLoading:boolean = false
+  isLoading:boolean = false;
+  showPassword:boolean = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   login() {
     this.isLoading = true
@@ -28,7 +33,7 @@ export class LoginComponent {
       (response: any) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('userId', response.id);
-        
+
         if(this.email.includes("admin")){
           this.router.navigate(['/userHome/' + response.id]);
         }else{

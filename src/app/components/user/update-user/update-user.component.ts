@@ -15,23 +15,12 @@ import { LoadingComponent } from "../../modal/loading/loading.component";
   styleUrl: './update-user.component.css'
 })
 export class UpdateUserComponent implements OnInit {
+  private userService = inject(UserService);
+  private homeRoute = inject(ActivatedRoute);
+  private router = inject(Router);
 
-  user: User = {} as User
-  userService = inject(UserService)
-  homeRoute = inject(ActivatedRoute)
-  route = inject(Router)
-  userId = this.homeRoute.parent?.snapshot.params['userId']
-  isLoading : boolean = true
-
-  ngOnInit(): void {
-    this.userService.geUserById(this.userId).subscribe(
-      (data) => {
-        this.userForm.patchValue(data)
-        this.userForm.get("id")?.setValue(Number(this.userId))
-        this.isLoading = false
-      }
-    )
-  }
+  userId = this.homeRoute.parent?.snapshot.params['userId'];
+  isLoading = true;
 
   userForm = new FormGroup({
     id: new FormControl<number | null>(null),
@@ -51,29 +40,51 @@ export class UpdateUserComponent implements OnInit {
       Validators.required,
       Validators.pattern("^[0-9]{9}$")
     ]),
-    registrationDate: new FormControl<Date | null>(null, [
-      Validators.required
-    ]),
-    isActive: new FormControl<string | null>("S", [
-      Validators.required,
-    ]),
+    registrationDate: new FormControl<Date | null>(null, [Validators.required]),
+    isActive: new FormControl<string | null>("S", [Validators.required]),
     password: new FormControl<string | null>(null),
-    email : new FormControl<string | null>(null)
-  })
+    email: new FormControl<string | null>(null)
+  });
 
-  onSubmit() {
-    this.userService.updateUser(this.userForm.value as User).subscribe(
-      () => {
-        const modal = new bootstrap.Modal(document.getElementById('modalUpdate')!)
-        modal.show()
+  ngOnInit(): void {
+    this.loadUserData();
+  }
+
+  private loadUserData(): void {
+    this.userService.geUserById(this.userId).subscribe({
+      next: (data) => {
+        this.userForm.patchValue(data);
+        this.userForm.get("id")?.setValue(Number(this.userId));
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error al cargar los datos del usuario:', error);
+        this.isLoading = false;
       }
-    )
+    });
   }
 
-  hideModal() {
-    const modal = bootstrap.Modal.getInstance(document.getElementById('modalUpdate')!)
-    modal?.hide()
-    this.route.navigate(["/userHome/"+this.userId])
+  onSubmit(): void {
+    if (this.userForm.valid) {
+      this.userService.updateUser(this.userForm.value as User).subscribe({
+        next: () => {
+          this.showModal();
+        },
+        error: (error) => {
+          console.error('Error al actualizar el usuario:', error);
+        }
+      });
+    }
   }
 
+  private showModal(): void {
+    const modal = new bootstrap.Modal(document.getElementById('modalUpdate')!);
+    modal.show();
+  }
+
+  hideModal(): void {
+    const modal = bootstrap.Modal.getInstance(document.getElementById('modalUpdate')!);
+    modal?.hide();
+    this.router.navigate(["/userHome/", this.userId]);
+  }
 }
