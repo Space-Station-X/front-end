@@ -57,7 +57,7 @@
                   <td class="col-name" data-label="Nombre">{{ game.nombre }}</td>
                   <td class="col-platform" data-label="Plataforma">{{ game.plataforma }}</td>
                   <td class="col-price" data-label="Precio">S/{{ game.precio }}</td>
-                  <td class="col-copies" data-label="Copias">{{ game.nuCopias }}</td>
+                  <td class="col-copies" data-label="Copias">{{ game.nuCopias===0 ? "Agotado" : game.nuCopias }}</td>
                   <td class="col-actions">
                     <button class="btn-details" [routerLink]="['/userHome', userId, 'videogame', game.id]">
                       <i class="fas fa-eye"></i>

@@ -32,19 +32,19 @@ export class CreateVideogameComponent {
     nombre: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(3),
-      Validators.maxLength(150),
+      Validators.maxLength(30),
       Validators.pattern("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ \"'.,:-]+$")
     ]),
     plataforma: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(2),
-      Validators.maxLength(100),
+      Validators.maxLength(25),
       Validators.pattern("^[a-zA-Z\\s]+$")
     ]),
     descripcion: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(10),
-      Validators.maxLength(700)
+      Validators.maxLength(500)
     ]),
     precio: new FormControl<number | null>(null, [
       Validators.required,

@@ -54,7 +54,7 @@ export class GenerateSaleComponent implements OnInit {
   )
 
   onSubmit() {
-    if (this.ventaDetalle.quantity < this.item.nuCopias) {
+    if (this.ventaDetalle.quantity <= this.item.nuCopias) {
       this.ventaDetalle.salePrice = this.item.precio
       this.ventaDetalle.totalAmount = this.item.precio * this.ventaDetalle.quantity
       this.ventaDetalle.videoGameId = Number(this.videogameId)
@@ -72,6 +72,7 @@ export class GenerateSaleComponent implements OnInit {
       this.saleService.createSale(this.venta).subscribe(
         data => {
           this.item.nuCopias = this.item.nuCopias - this.venta.itemCount
+          this.item.nuCopias=== 0 ? this.item.activo = "N" : this.item.activo = "S"
           this.videogameService.updateVideogame(this.item).subscribe()
           //mensaje Modal
           const modal = new bootstrap.Modal(document.getElementById("modalSale")!)
