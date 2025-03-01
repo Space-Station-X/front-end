@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, LOCALE_ID, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, RouterOutlet } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -7,9 +7,10 @@ import { jwtInterceptor } from './interceptor/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), 
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(withInterceptors([jwtInterceptor]) ),
+    { provide: LOCALE_ID, useValue: 'es' }
     //withInterceptors([jwtInterceptor]) dentro del provide
 
   ]

@@ -1,17 +1,132 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
 .img-size {
-    width: 120px;
-    height: 80px;
+  width: 120px;
+  height: 80px;
+  object-fit: contain;
 }
 
+.navbar {
+  background: linear-gradient(145deg, #1c1c24 0%, #2b2b38 100%);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  padding: 0.8rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  position: relative;
+  display: flex;
+  color: white;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-brand:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background-color: #a395ff;
+  bottom: -4px;
+  left: 0;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover:after {
+  transform: scaleX(1);
+}
 
 .navbar .nav-link {
-    display: inline-block;
-    font-size: 20px;
-    transition: font-size 0.2s ease, transform 0.2s ease;
-    color: white !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  padding: 0.5rem 1rem;
+  margin: 0 0.2rem;
+  position: relative;
+  transition: color 0.3s ease, transform 0.3s ease;
+  border-radius: 4px;
+}
+
+.navbar .nav-link:before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 2px;
+  background-color: #a395ff;
+  transition: transform 0.3s ease;
+  border-radius: 10px;
 }
 
 .navbar .nav-link:hover {
-    font-size: 1.5rem;
-    transform: translateY(-3px);
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+.navbar .nav-link:hover:before {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.navbar .nav-link.active {
+  color: #ffffff !important;
+  background-color: rgba(163, 149, 255, 0.1);
+}
+
+.navbar-toggler {
+  border: none;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.4rem;
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 2px rgba(163, 149, 255, 0.3);
+}
+
+.navbar-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-width='2' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.login-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.login-link:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(163, 149, 255, 0.1);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: -1;
+  border-radius: 4px;
+}
+
+.login-link:hover:after {
+  transform: translateX(0);
+}
+
+.brand-logo {
+  background: linear-gradient(135deg, #a395ff, #6842ff);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 8px;
+  box-shadow: 0 2px 5px rgba(104, 66, 255, 0.3);
 }

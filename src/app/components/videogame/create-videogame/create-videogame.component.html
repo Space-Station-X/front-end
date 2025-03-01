@@ -1,73 +1,205 @@
-<div class="container mt-4 mb-4">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card shadow">
-        <div class="card-header bg-primary text-white text-center">
-          <h4>CREAR VIDEOJUEGO</h4>
-        </div>
-        <div class="card-body ms-5 me-5 mt-4 mb-4">
-          <form [formGroup]="videogameForm" (ngSubmit)="createVideogame()">
-            <div class="mb-3">
-              <label class="form-label">Nombre</label>
-              <input type="text" class="form-control" formControlName="nombre" required placeholder="Ingrese el nombre"
-                [ngClass]="{ 'is-invalid': videogameForm.get('nombre')?.invalid && videogameForm.get('nombre')?.touched,'is-valid' : videogameForm.get('nombre')?.valid }" />
+<div class="form-container">
+  <div class="form-wrapper">
+    <div class="form-card">
+      <div class="form-header">
+        <h2 class="form-title">Crear Nuevo Videojuego</h2>
+        <p class="form-subtitle">Ingrese los detalles del videojuego a vender</p>
+      </div>
+
+      <div class="form-body">
+        @if (isLoading()) {
+          <div class="loading-overlay">
+            <div class="spinner"></div>
+            <p>Procesando...</p>
+          </div>
+        }
+
+        <form [formGroup]="videogameForm" (ngSubmit)="createVideogame()">
+          <div class="form-grid">
+            <!-- Nombre -->
+            <div class="form-group">
+              <label class="form-label" for="nombre">Nombre del juego</label>
+              <input
+                type="text"
+                id="nombre"
+                class="form-control"
+                formControlName="nombre"
+                placeholder="Ej: The Last of Us Part II"
+                [ngClass]="{
+                  'is-invalid': isInvalid('nombre'),
+                  'is-valid': isValid('nombre')
+                }"
+              />
+              @if (hasError('nombre')) {
+                <div class="form-error">
+                  <i class="fas fa-exclamation-circle"></i>
+                  <span>{{ getErrorMessage('nombre') }}</span>
+                </div>
+              }
             </div>
 
-            <div class="mb-3">
-              <label class="form-label">Descripción</label>
-              <textarea class="form-control" formControlName="descripcion" placeholder="Ingrese la descripción"
-                [ngClass]="{ 'is-invalid': videogameForm.get('descripcion')?.invalid && videogameForm.get('descripcion')?.touched,'is-valid' : videogameForm.get('descripcion')?.valid }"></textarea>
+            <!-- Plataforma -->
+            <div class="form-group">
+              <label class="form-label" for="plataforma">Plataforma</label>
+              <input
+                type="text"
+                id="plataforma"
+                class="form-control"
+                formControlName="plataforma"
+                placeholder="Ej: PlayStation 5, Xbox Series X, Nintendo Switch"
+                [ngClass]="{
+                  'is-invalid': isInvalid('plataforma'),
+                  'is-valid': isValid('plataforma')
+                }"
+              />
+              @if (hasError('plataforma')) {
+                <div class="form-error">
+                  <i class="fas fa-exclamation-circle"></i>
+                  <span>{{ getErrorMessage('plataforma') }}</span>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Descripción -->
+          <div class="form-group">
+            <label class="form-label" for="descripcion">Descripción</label>
+            <textarea
+              id="descripcion"
+              class="form-control textarea-control"
+              formControlName="descripcion"
+              placeholder="Describe el videojuego, su historia, características principales y mecánicas de juego..."
+              [ngClass]="{
+                'is-invalid': isInvalid('descripcion'),
+                'is-valid': isValid('descripcion')
+              }"
+            ></textarea>
+            @if (hasError('descripcion')) {
+              <div class="form-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>{{ getErrorMessage('descripcion') }}</span>
+              </div>
+            }
+          </div>
+
+          <div class="form-grid">
+            <!-- Precio -->
+            <div class="form-group">
+              <label class="form-label" for="precio">Precio (S/)</label>
+              <input
+                type="number"
+                id="precio"
+                class="form-control"
+                formControlName="precio"
+                placeholder="Ej: 199.90"
+                step="0.01"
+                [ngClass]="{
+                  'is-invalid': isInvalid('precio'),
+                  'is-valid': isValid('precio')
+                }"
+              />
+              @if (hasError('precio')) {
+                <div class="form-error">
+                  <i class="fas fa-exclamation-circle"></i>
+                  <span>{{ getErrorMessage('precio') }}</span>
+                </div>
+              }
             </div>
 
-            <div class="mb-3">
-              <label class="form-label">Plataforma</label>
-              <input type="text" class="form-control" formControlName="plataforma" placeholder="Ingrese la plataforma"
-                [ngClass]="{ 'is-invalid': videogameForm.get('plataforma')?.invalid && videogameForm.get('plataforma')?.touched,'is-valid' : videogameForm.get('plataforma')?.valid }" />
+            <!-- Copias -->
+            <div class="form-group">
+              <label class="form-label" for="nuCopias">Copias Disponibles</label>
+              <input
+                type="number"
+                id="nuCopias"
+                class="form-control"
+                formControlName="nuCopias"
+                placeholder="Ej: 50"
+                [ngClass]="{
+                  'is-invalid': isInvalid('nuCopias'),
+                  'is-valid': isValid('nuCopias')
+                }"
+              />
+              @if (hasError('nuCopias')) {
+                <div class="form-error">
+                  <i class="fas fa-exclamation-circle"></i>
+                  <span>{{ getErrorMessage('nuCopias') }}</span>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Imagen -->
+          <div class="form-group">
+            <label class="form-label">Imagen del juego</label>
+            <div class="file-upload">
+              <label class="file-upload-label">
+                <i class="fas fa-upload"></i>
+                <span>{{ selectedFile() ? selectedFile()?.name : 'Seleccionar imagen' }}</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  (change)="onFileSelected($event)"
+                />
+              </label>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label">Copias Disponibles</label>
-              <input type="number" class="form-control" formControlName="nuCopias"
-                placeholder="Ingrese el número de copias disponibles"
-                [ngClass]="{ 'is-invalid': videogameForm.get('nuCopias')?.invalid && videogameForm.get('nuCopias')?.touched,'is-valid' : videogameForm.get('nuCopias')?.valid }" />
-            </div>
+            @if (imagenError()) {
+              <div class="form-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>{{ imagenError() }}</span>
+              </div>
+            }
 
-            <div class="mb-3">
-              <label class="form-label">Precio</label>
-              <input type="number" class="form-control" formControlName="precio" placeholder="Ingrese el precio"
-                [ngClass]="{ 'is-invalid': videogameForm.get('precio')?.invalid && videogameForm.get('precio')?.touched,'is-valid' : videogameForm.get('precio')?.valid }" />
-            </div>
+            @if (imagenPreview()) {
+              <div class="image-preview-container">
+                <img [src]="imagenPreview()" alt="Vista previa" class="image-preview">
+              </div>
+            }
+          </div>
 
-            <div class="mb-3">
-              <label for="imagen">Seleccionar imagen:</label>
-              <input id="imagen" type="file" (change)="onFileSelected($event)" class="form-control mb-3">
-            </div>
+          <!-- Botones -->
+          <div class="form-actions">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="videogameForm.invalid || isLoading()"
+            >
+              <i class="fas fa-save"></i>
+              <span>Crear Videojuego</span>
+            </button>
 
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary" [disabled]="videogameForm.invalid">Crear</button>
-              <button type="button" class="btn btn-secondary ms-2"
-                routerLink="/userHome/{{this.userId}}">Cancelar</button>
-            </div>
-          </form>
-        </div>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              [routerLink]="['/userHome', userId]"
+            >
+              <i class="fas fa-times"></i>
+              <span>Cancelar</span>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade " id="modalCreate" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content ">
-      <div class="modal-header text-bg-primary">
-        <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+<!-- Modal personalizado -->
+<div class="custom-modal" [class.show]="showModal()">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5>¡Videojuego Creado!</h5>
+    </div>
+    <div class="modal-body">
+      <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
       </div>
-      <div class="modal-body">
-        ¡Videojuego Creado!
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="hideModal()">Aceptar</button>
-      </div>
+      <p>El videojuego ha sido creado correctamente.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="hideModal()">
+        Aceptar
+      </button>
     </div>
   </div>
 </div>

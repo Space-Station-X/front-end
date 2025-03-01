@@ -1,0 +1,334 @@
+:host {
+  --primary-color: #6842ff;
+  --secondary-color: #764ba2;
+  --accent-color: #2acaea;
+  --background-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --text-color: #333;
+  --light-text: #fff;
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  --success-color: #00b09b;
+  --danger-color: #ff5a5f;
+  --warning-color: #ffc107;
+  --border-radius: 1rem;
+  display: block;
+}
+
+.form-container {
+  background: var(--background-gradient);
+  min-height: 100vh;
+  padding: 3rem 1rem;
+}
+
+.form-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.form-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(10px);
+  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.form-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  padding: 1.8rem;
+  text-align: center;
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.form-subtitle {
+  margin-top: 0.5rem;
+  opacity: 0.8;
+  font-size: 1rem;
+}
+
+.form-body {
+  padding: 2.5rem;
+  position: relative;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #444;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background-color: rgba(255,255,255,0.9);
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(104, 66, 255, 0.2);
+}
+
+.textarea-control {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-error {
+  color: var(--danger-color);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.is-invalid {
+  border-color: var(--danger-color);
+  background-image: none;
+}
+
+.is-valid {
+  border-color: var(--success-color);
+  background-image: none;
+}
+
+.image-preview-container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.image-preview {
+  max-width: 100%;
+  height: auto;
+  max-height: 200px;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.image-preview:hover {
+  transform: scale(1.03);
+}
+
+.file-upload {
+  position: relative;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.file-upload-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+  color: #333;
+  padding: 0.7rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-weight: 500;
+}
+
+.file-upload-label:hover {
+  background: linear-gradient(135deg, #d0d0d0, #e8e8e8);
+  transform: translateY(-2px);
+}
+
+.file-upload input[type=file] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.form-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 2rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #718096, #4a5568);
+  color: white;
+}
+
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(104, 66, 255, 0.2);
+  border-top: 5px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.custom-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 500px;
+  overflow: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.custom-modal.show .modal-content {
+  transform: translateY(0);
+}
+
+.modal-header {
+  background: linear-gradient(135deg, var(--success-color), #96c93d);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.modal-header h5 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.modal-body {
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.modal-footer {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.success-icon {
+  font-size: 4rem;
+  color: var(--success-color);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
