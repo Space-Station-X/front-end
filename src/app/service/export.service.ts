@@ -18,13 +18,12 @@ export interface PDFConfig {
   headerInfo?: { text: string, alignment?: 'left' | 'center' | 'right' }[];
   tableData: PDFTableConfig[];
 }
+
 @Injectable({
   providedIn: 'root',
 })
 export class ExportService {
-  // private datePipe = new DatePipe('es');
   private datePipe = new DatePipe('en-US');
-
 
   formatDate(date: Date | string, format: string = 'dd/MM/yyyy HH:mm'): string {
     return this.datePipe.transform(date, format) || '';
@@ -51,22 +50,44 @@ export class ExportService {
     }
   }
 
-  exportToPDF(config: PDFConfig): void {
+  async exportToPDF(config: PDFConfig): Promise<void> {
     try {
       const doc = new jsPDF();
       const pageWidth = doc.internal.pageSize.getWidth();
-      let yPosition = 10;
+      const pageHeight = doc.internal.pageSize.getHeight();
+      let yPosition = 15;
 
-      // Título principal
-      doc.setFontSize(18);
-      doc.setTextColor(104, 66, 255); // Color primario
-      doc.text(config.title, pageWidth / 2, yPosition, { align: 'center' });
+      // Agregar fondo decorativo para el encabezado
+      doc.setFillColor(245, 247, 250);
+      doc.rect(0, 0, pageWidth, 40, 'F');
 
-      // Fecha de generación
-      yPosition += 8;
-      doc.setFontSize(10);
+      // Borde inferior del encabezado
+      doc.setDrawColor(104, 66, 255);
+      doc.setLineWidth(0.5);
+      doc.line(0, 40, pageWidth, 40);
+
+      // Título principal con círculo decorativo
+      doc.setFontSize(22);
+      doc.setTextColor(104, 66, 255);
+
+      // Círculo decorativo
+      doc.setFillColor(104, 66, 255);
+      doc.circle(20, 20, 7, 'F');
+
+      // Título del reporte
+      doc.text(config.title, 40, 22);
+
+      // Fecha de generación con círculo decorativo
+      yPosition = 50;
+
+      // Círculo decorativo más pequeño
+      doc.setFillColor(118, 75, 162);
+      doc.circle(15, yPosition - 1, 4, 'F');
+
+      // Fecha y hora
       doc.setTextColor(80, 80, 80);
-      doc.text(`Generado: ${this.formatDate(new Date())}`, pageWidth / 2, yPosition, { align: 'center' });
+      doc.setFontSize(10);
+      doc.text(`Generado: ${this.formatDate(new Date())}`, 25, yPosition);
 
       // Información adicional del encabezado
       if (config.headerInfo && config.headerInfo.length > 0) {
@@ -74,42 +95,63 @@ export class ExportService {
         doc.setFontSize(11);
         doc.setTextColor(60, 60, 60);
 
-        config.headerInfo.forEach(info => {
-          doc.text(info.text, info.alignment === 'right' ? pageWidth - 15 : 15, yPosition, {
-            align: info.alignment || 'left'
-          });
-          yPosition += 5;
+        config.headerInfo.forEach((info, index) => {
+          // Marcadores simples
+          doc.setFillColor(index === 0 ? '#3498db' : '#e74c3c');
+          doc.circle(15, yPosition - 2, 2, 'F');
+
+          doc.text(info.text, 20, yPosition, { align: 'left' });
+          yPosition += 8;
         });
       }
 
-      // Crear tablas
-      config.tableData.forEach((table, index) => {
+      // Línea decorativa antes de las tablas
+      yPosition += 5;
+      doc.setDrawColor(200, 200, 200);
+      doc.setLineWidth(0.3);
+      doc.line(15, yPosition, pageWidth - 15, yPosition);
+      yPosition += 10;
+
+      // Crear tablas (se mantiene igual)
+      for (let index = 0; index < config.tableData.length; index++) {
+        const table = config.tableData[index];
         // Espacio entre tablas
-        yPosition += index > 0 ? 15 : 10;
+        yPosition += index > 0 ? 15 : 5;
 
         // Verificar si necesitamos una nueva página
-        if (yPosition > 270) {
+        if (yPosition > pageHeight - 40) {
           doc.addPage();
           yPosition = 20;
         }
 
-        // Agregar título de la tabla si existe
+        // Crear un rectángulo para el encabezado de la tabla
+        doc.setFillColor(104, 66, 255);
+        doc.rect(15, yPosition - 5, pageWidth - 30, 20, 'F');
+
+        // Decoración simple en lugar de icono
+        doc.setFillColor(255, 255, 255);
+        doc.circle(25, yPosition + 5, 5, 'F');
+        doc.setFillColor(104, 66, 255);
+        doc.circle(25, yPosition + 5, 3, 'F');
+
+        // Título de la tabla
         if (table.title) {
           doc.setFontSize(12);
-          doc.setTextColor(104, 66, 255);
-          doc.text(table.title, 15, yPosition);
-          yPosition += 6;
+          doc.setTextColor(255, 255, 255);
+          doc.text(table.title, 35, yPosition + 5);
         }
 
-        // Agregar subtítulo si existe
+        // Subtítulo de la tabla
         if (table.subTitle) {
-          doc.setFontSize(10);
-          doc.setTextColor(80, 80, 80);
-          doc.text(table.subTitle, 15, yPosition);
-          yPosition += 6;
+          doc.setFontSize(9);
+          doc.setTextColor(220, 220, 220);
+          doc.text(table.subTitle, pageWidth - 20, yPosition + 5, { align: 'right' });
         }
 
-        // Crear tabla
+        // Actualizar la posición Y después del banner
+        yPosition += 20;
+
+        // Crear tabla con estilo mejorado
         autoTable(doc, {
           head: [table.headers],
           body: table.data,
@@ -117,19 +159,48 @@ export class ExportService {
           theme: 'grid',
           styles: {
             fontSize: 9,
-            cellPadding: 3
+            cellPadding: 4,
+            lineColor: [220, 220, 220],
+            lineWidth: 0.1
           },
           headStyles: {
             fillColor: [118, 75, 162],
             textColor: [255, 255, 255],
-            fontStyle: 'bold'
+            fontStyle: 'bold',
+            halign: 'center'
+          },
+          alternateRowStyles: {
+            fillColor: [248, 248, 255]
           },
           columnStyles: table.columnStyles || {}
         });
 
         // Actualizar la posición Y después de la tabla
         yPosition = (doc as any).lastAutoTable.finalY + 10;
-      });
+      }
+
+      // Pie de página simple y confiable
+      const footerPosition = pageHeight - 20;
+      doc.setFillColor(245, 247, 250);
+      doc.rect(0, footerPosition - 5, pageWidth, 25, 'F');
+
+      doc.setDrawColor(104, 66, 255);
+      doc.setLineWidth(0.3);
+      doc.line(0, footerPosition - 5, pageWidth, footerPosition - 5);
+
+      doc.setFontSize(8);
+      doc.setTextColor(100, 100, 100);
+      doc.text('Space Station Games - Sistema de Gestión de Ventas', pageWidth / 2, footerPosition + 2, { align: 'center' });
+      doc.text(`Documento generado el ${this.formatDate(new Date())}`, pageWidth / 2, footerPosition + 8, { align: 'center' });
+
+      // Paginación
+      const totalPages = doc.getNumberOfPages();
+      for (let i = 1; i <= totalPages; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.setTextColor(80, 80, 80);
+        doc.text(`Página ${i} de ${totalPages}`, pageWidth - 20, pageHeight - 10);
+      }
 
       // Guardar el PDF
       doc.save(`${config.fileName}_${this.getCurrentDate()}.pdf`);
@@ -157,6 +228,7 @@ export class ExportService {
   private getCurrentDate(): string {
     return new Date().toISOString().split('T')[0];
   }
+
   exportWorkbookToExcel(workbook: XLSX.WorkBook, fileName: string): void {
     try {
       const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

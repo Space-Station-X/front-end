@@ -127,7 +127,7 @@ export class GetSalesComponent implements OnInit {
   }
 
 
-  exportToPDF(): void {
+  async exportToPDF(): Promise<void> {
     this.isExporting.set(true);
 
     try {
@@ -169,7 +169,8 @@ export class GetSalesComponent implements OnInit {
         pdfConfig.tableData.push(tableConfig);
       });
 
-      this.exportService.exportToPDF(pdfConfig);
+      // Ahora usamos await ya que el método es asíncrono
+      await this.exportService.exportToPDF(pdfConfig);
     } catch (error) {
       console.error('Error al exportar a PDF:', error);
     } finally {
