@@ -1,10 +1,12 @@
-<div class="container-fluid mt-3 ">
+<app-loading *ngIf="isLoading" message ="Un momento Por favor.."></app-loading>
+
+<div *ngIf="!isLoading" class="container-fluid mt-3 ">
     <div class="text-center">
         <h3>BIENVENIDO</h3>
     </div>
     <div class="row justify-content-center mt-5">
         <div class="col-12 col-md-6 col-xl-4" *ngFor="let item of videogames">
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-header text-center">
                     <h4>{{ item.nombre | uppercase }}</h4>
                 </div>

@@ -5,11 +5,12 @@ import { ActivatedRoute, RouterLink} from '@angular/router';
 import { Client } from '../../../types/client';
 import { Videogame } from '../../../types/videogame';
 import { CommonModule } from '@angular/common';
+import { LoadingComponent } from "../../modal/loading/loading.component";
 
 @Component({
   selector: 'app-home-client',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, LoadingComponent],
   templateUrl: './home-client.component.html',
   styleUrl: './home-client.component.css'
 })
@@ -22,12 +23,17 @@ export class HomeClientComponent implements OnInit{
   activatedRoute = inject(ActivatedRoute)
   clientId = this.activatedRoute.snapshot.params['clientId']
 
+  isLoading = true
+
   ngOnInit(): void {
       this.clientService.getClientById(this.clientId).subscribe(
         (data)=> this.client = data,
       )
       this.videogameService.getVideogames().subscribe(
-        (data)=> this.videogames = data,
+        (data)=> {
+          this.videogames = data
+          this.isLoading = false
+        }
       )
   }
 

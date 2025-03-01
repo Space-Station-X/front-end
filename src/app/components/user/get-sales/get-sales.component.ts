@@ -24,31 +24,26 @@ export class GetSalesComponent implements OnInit {
 
   videojuegosMap = new Map<number, string>();
   clientesMap = new Map<number, string>();
-  ventasDetailsMap = new Map<number, SalesDetails[]>();
 
   salesService = inject(SaleService);
   videogameService = inject(VideogameService);
   clientService = inject(ClientService);
 
-  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     // Obtener clientes
-    this.clientService.getClient().subscribe(data => {
-      this.clientesMap = new Map(data.map(cliente => [cliente.id, cliente.email]));
-      this.cdr.detectChanges(); // Forzar actualización de la UI
+    this.clientService.getClientDTO().subscribe(data => {
+      this.clientesMap = new Map(data.map(cliente => [cliente.id, cliente.numberDate]));
     });
 
     // Obtener videojuegos
     this.videogameService.getVideogames().subscribe(data => {
       this.videojuegosMap = new Map(data.map(juego => [juego.id, juego.nombre]));
-      this.cdr.detectChanges();
     });
 
     // Obtener ventas y detalles
     this.salesService.getSales().subscribe(data => {
-      this.ventas = data;
-      this.cdr.detectChanges();
+      this.ventas = data;;
       this.isLoading = false
     });
 

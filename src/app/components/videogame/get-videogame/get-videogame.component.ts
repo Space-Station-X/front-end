@@ -25,8 +25,8 @@ export class GetVideogameComponent implements OnInit {
   
   ngOnInit(): void {
     this.videogameService.getVideogameById(this.videogameId).subscribe(data => {
-      this.getVideojuego = data;
-      this.isLoading
+      this.getVideojuego = data
+      this.isLoading = false
     });
   }
 

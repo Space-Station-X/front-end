@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Client } from '../types/client';
 import { environment } from '../environments/environment.development';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,11 @@ export class ClientService {
     return this.http.get<Client[]>(`${this.url}client`);
   }
 
+  getClientDTO(){
+    return this.http.get<{ clientDto:Client[] }>(`${this.url}client`).pipe(
+      map(response => response.clientDto) // Extrae solo el array
+    );
+  }
   getClientById(id: number) {
     return this.http.get<Client>(`${this.url}client/${id}`);
   }
