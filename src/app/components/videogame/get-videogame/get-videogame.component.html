@@ -1,0 +1,130 @@
+@if (isLoading()) {
+  <app-loading message="Cargando detalles del videojuego..."></app-loading>
+} @else {
+  <div class="game-detail-container">
+    <div class="game-detail-wrapper">
+      <div class="game-detail-card">
+        <div class="game-header" [style.background-image]="'url(' + videogame().imagen + ')'">
+          <div class="game-header-overlay">
+            <h1 class="game-title">{{ videogame().nombre }}</h1>
+            <div class="game-platform-badge">{{ videogame().plataforma }}</div>
+          </div>
+        </div>
+
+        <div class="game-content">
+          <div class="game-main">
+            <div class="game-image-container">
+              <img [src]="videogame().imagen" [alt]="videogame().nombre" class="game-image">
+              <div class="game-price-tag">
+                <span class="currency">S/</span>{{ videogame().precio }}
+              </div>
+            </div>
+
+            <div class="game-info">
+              <div class="info-group">
+                <div class="info-label">
+                  <i class="fas fa-boxes"></i>
+                  <span>Copias Disponibles</span>
+                </div>
+                <div class="info-value">{{ videogame().nuCopias }}</div>
+              </div>
+
+              <div class="info-group">
+                <div class="info-label">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>Fecha de Registro</span>
+                </div>
+                <div class="info-value">{{ videogame().feReg | date:'dd MMM, yyyy' }}</div>
+              </div>
+
+              <div class="info-group">
+                <div class="info-label">
+                  <i class="fas fa-gamepad"></i>
+                  <span>Plataforma</span>
+                </div>
+                <div class="info-value">{{ videogame().plataforma }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="game-description">
+            <h3 class="description-title">Descripción</h3>
+            <p class="description-text">{{ videogame().descripcion }}</p>
+          </div>
+
+          <div class="game-actions">
+            <button class="btn-update" [routerLink]="['/userHome', userId, 'updateVideogame', videogame().id]">
+              <i class="fas fa-edit"></i>
+              <span>Actualizar</span>
+            </button>
+
+            <button class="btn-delete" (click)="modalDelete()">
+              <i class="fas fa-trash-alt"></i>
+              <span>Eliminar</span>
+            </button>
+
+            <button class="btn-back" [routerLink]="['/userHome', userId]">
+              <i class="fas fa-arrow-left"></i>
+              <span>Volver</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<div class="modal fade custom-modal" id="modalDelete" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">
+          <i class="fas fa-exclamation-triangle"></i>
+          Confirmar Eliminación
+        </h5>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro de que deseas eliminar este videojuego?</p>
+        <div class="game-mini-info">
+          <img [src]="videogame().imagen" [alt]="videogame().nombre" class="mini-image">
+          <div class="mini-details">
+            <strong>{{ videogame().nombre  }}</strong>
+            <span>{{ videogame().plataforma }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" data-bs-dismiss="modal">
+          <i class="fas fa-times"></i>
+          <span>Cancelar</span>
+        </button>
+        <button type="button" class="btn-confirm" (click)="deleteVideojuego(videogame().id)">
+          <i class="fas fa-check"></i>
+          <span>Confirmar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade custom-modal" id="modalAviso" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header success-header">
+        <h5 class="modal-title">
+          <i class="fas fa-check-circle"></i>
+          Operación Completada
+        </h5>
+      </div>
+      <div class="modal-body">
+        <div class="success-icon">
+          <i class="fas fa-trash-alt"></i>
+        </div>
+        <p>El videojuego ha sido eliminado correctamente</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-simple" type="button" data-bs-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,86 @@
-<h3 class="text-center mt-5">Bienvenido {{user.name | titlecase}}</h3>
-<div class="col-2">
+<app-loading *ngIf="isLoading()" message="Cargando catálogo de juegos..."></app-loading>
 
-</div>
+@if (!isLoading()) {
+  <div class="dashboard-container">
+    <div class="welcome-section">
+      <h3 class="welcome-text">Bienvenido, {{ nameUser() | titlecase }}</h3>
+    </div>
+
+    <div class="content-card">
+      <div class="card-header">
+        <h4 class="header-title">Catálogo de Videojuegos</h4>
+
+        <div class="actions-container">
+          <button class="btn-action btn-create" [routerLink]="['/userHome', userId, 'createVideogame']">
+            <i class="fas fa-plus-circle"></i>
+            <span>Crear Videojuego</span>
+          </button>
+
+          <button class="btn-action btn-view" [routerLink]="['/userHome', userId, 'sales']">
+            <i class="fas fa-chart-line"></i>
+            <span>Ver Ventas</span>
+          </button>
+
+          @if (hasGames()) {
+            <button class="btn-action btn-export-excel" (click)="exportToExcel()">
+              <i class="fas fa-file-excel"></i>
+              <span>Excel</span>
+            </button>
+
+            <button class="btn-action btn-export-pdf" (click)="exportToPDF()">
+              <i class="fas fa-file-pdf"></i>
+              <span>PDF</span>
+            </button>
+          }
+
+        </div>
+      </div>
+
+      <div class="table-container">
+        @if (hasGames()) {
+          <table class="modern-table">
+            <thead>
+              <tr>
+                <th class="col-id">#</th>
+                <th class="col-name">Nombre</th>
+                <th class="col-platform">Plataforma</th>
+                <th class="col-price">Precio</th>
+                <th class="col-copies">Copias</th>
+                <th class="col-actions">Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (game of videojuegos(); track game.id; let i = $index) {
+                <tr>
+                  <td class="col-id" data-label="#">{{ i+1 }}</td>
+                  <td class="col-name" data-label="Nombre">{{ game.nombre }}</td>
+                  <td class="col-platform" data-label="Plataforma">{{ game.plataforma }}</td>
+                  <td class="col-price" data-label="Precio">S/{{ game.precio }}</td>
+                  <td class="col-copies" data-label="Copias">{{ game.nuCopias===0 ? "Agotado" : game.nuCopias }}</td>
+                  <td class="col-actions">
+                    <button class="btn-details" [routerLink]="['/userHome', userId, 'videogame', game.id]">
+                      <i class="fas fa-eye"></i>
+                      <span>Ver Detalles</span>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        } @else {
+          <div class="empty-state">
+            <div class="empty-state-icon">
+              <i class="fas fa-gamepad"></i>
+            </div>
+            <h5 class="empty-state-text">No hay videojuegos disponibles</h5>
+            <button class="btn-action btn-create" [routerLink]="['/userHome', userId, 'createVideogame']">
+              <i class="fas fa-plus-circle"></i>
+              <span>Añadir Juego</span>
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,68 @@
+<app-loading *ngIf="isLoading" message="Cargando información del perfil..."></app-loading>
+
+<div class="profile-container" *ngIf="!isLoading">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="profile-card">
+
+          
+          <div class="profile-header">
+            <div class="profile-avatar">
+              {{ getUser.username.charAt(0).toUpperCase() }}
+            </div>
+            <h2 class="profile-title">{{ getUser.fullname }}</h2>
+            <p class="profile-subtitle">{{ getUser.email }}</p>
+            <div class="profile-decoration"></div>
+          </div>
+
+          <div class="profile-body">
+            <div class="info-group">
+              <div class="info-label">Nombre de Usuario</div>
+              <div class="info-value">
+                <i class="fas fa-user info-icon"></i>
+                {{ getUser.username }}
+              </div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Correo Electrónico</div>
+              <div class="info-value">
+                <i class="fas fa-envelope info-icon"></i>
+                {{ getUser.email }}
+              </div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Teléfono</div>
+              <div class="info-value">
+                <i class="fas fa-phone info-icon"></i>
+                {{ getUser.phone }}
+              </div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Fecha de Registro</div>
+              <div class="info-value">
+                <i class="fas fa-calendar-alt info-icon"></i>
+                {{ getUser.registrationDate | date:'dd MMMM, yyyy • HH:mm' }}
+              </div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Estado</div>
+              <div class="info-value">
+                <span
+                  class="status-badge"
+                  [ngClass]="getUser.isActive === 'S' ? 'status-active' : 'status-inactive'">
+                  <i class="fas" [ngClass]="getUser.isActive === 'S' ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                  {{ getUser.isActive === 'S' ? 'Cuenta Activa' : 'Cuenta Inactiva' }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<app-loading *ngIf="isLoading" message="Conectando con el servidor de clientes..."></app-loading>
+
+<div class="profile-container" *ngIf="!isLoading">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="profile-card">
+          <div class="profile-header">
+            <h2 class="profile-title">{{ getClient.numberDate.toUpperCase() }}</h2>
+            <p class="profile-subtitle">DNI: {{ getClient.numberDocument }}</p>
+            <div class="profile-decoration"></div>
+          </div>
+
+          <div class="profile-body">
+            <div class="info-group">
+              <div class="info-label">Código</div>
+              <div class="info-value">
+                <i class="fas fa-id-badge info-icon"></i>
+                {{ getClient.id }}
+              </div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Teléfono</div>
+              <div class="info-value">
+                <i class="fas fa-phone info-icon"></i>
+                {{ getClient.phone }}
+              </div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Fecha de Registro</div>
+              <div class="info-value">
+                <i class="fas fa-calendar-alt info-icon"></i>
+                {{ getClient.registerDate | date:'dd/MM/yyyy HH:mm' }}
+              </div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Estado</div>
+              <div class="info-value">
+                <span class="status-badge" 
+                  [ngClass]="getClient.isActive == 1 ? 'status-active' : 'status-inactive'">
+                  <i class="fas" [ngClass]="getClient.isActive == 1 ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                  {{ getClient.isActive == 1 ? 'Cuenta Activa' : 'Cuenta Inactiva' }}
+                </span>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

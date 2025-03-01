@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <!-- Enlace de inicio con logo -->
+    <a class="navbar-brand" routerLink="/userHome/{{userId}}">
+      <div class="brand-logo">PA</div>
+      <span>Polvos Azules</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/userHome/{{userId}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="get" routerLinkActive="active">Ver Datos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="update" routerLinkActive="active">Actualizar Datos</a>
+        </li>
+        <li class="nav-item ml-2">
+          <a class="nav-link text-danger" (click)="logout()" style="cursor: pointer;">
+            <i class="fas fa-sign-out-alt mr-1"></i> Cerrar Sesión
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Modal de confirmación de logout -->
+<div class="modal fade" id="modalLogOut" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Cerrar sesión</h5>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas cerrar tu sesión?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="hideModal()">Confirmar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

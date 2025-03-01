@@ -1,0 +1,37 @@
+<app-loading *ngIf="isLoading" message="Un momento Por favor.."></app-loading>
+
+<div *ngIf="!isLoading" class="container-fluid mt-3 ">
+    <div class="text-center">
+        <h3>BIENVENIDO</h3>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <ng-container *ngFor="let item of videogames">
+            <div class="col-12 col-md-6 col-xl-4" *ngIf="item.activo == 'S'">
+                <div class="card mb-3">
+                    <div class="card-header text-center">
+                        <h4>{{ item.nombre | uppercase }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <img [src]="item.imagen" alt="{{ item.nombre }}" class="img-fluid img-size">
+                            </div>
+                            <div class="col-6 text-star">
+                                <p><strong>Plataforma:</strong> {{ item.plataforma }}</p>
+                                <p><strong>Fecha de Lanzamiento:</strong> {{ item.feReg }}</p>
+                                <p><strong>Precio: S/</strong>{{ item.precio }}</p>
+                            </div>
+                            <div class="col-12 text-center mt-2">
+                                <p>{{ item.descripcion }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button class="btn btn-primary"
+                            routerLink="/clientHome/{{client.id}}/generateSale/{{item.id}}">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+          </ng-container>
+    </div>
+</div>

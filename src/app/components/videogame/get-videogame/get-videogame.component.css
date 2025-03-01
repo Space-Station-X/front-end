@@ -1,0 +1,330 @@
+:host {
+  --primary-color: #6842ff;
+  --secondary-color: #764ba2;
+  --accent-color: #2acaea;
+  --background-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --text-color: #333;
+  --light-text: #fff;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  --success-color: #00b09b;
+  --danger-color: #ff5a5f;
+  --warning-color: #ffc107;
+  display: block;
+}
+
+.game-detail-container {
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  background-image: var(--background-gradient);
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-detail-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.game-detail-card {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(10px);
+  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-detail-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.game-header {
+  height: 250px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+
+.game-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.8));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+}
+
+.game-title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.game-platform-badge {
+  display: inline-block;
+  background: var(--accent-color);
+  color: var(--light-text);
+  padding: 0.25rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  align-self: flex-start;
+}
+
+.game-content {
+  padding: 2rem;
+}
+
+.game-main {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.game-image-container {
+  flex: 0 0 300px;
+  position: relative;
+}
+
+.game-image {
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.game-price-tag {
+  position: absolute;
+  top: 15px;
+  right: -10px;
+  background: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.currency {
+  font-size: 1rem;
+  margin-right: 2px;
+  font-weight: 400;
+}
+
+.game-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.info-label i {
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+.info-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.game-description {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 0.75rem;
+}
+
+.description-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.description-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+.game-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn-update, .btn-delete, .btn-back, .btn-confirm, .btn-cancel, .btn-simple {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-update {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #ff5a5f, #ff4757);
+  color: white;
+}
+
+.btn-back {
+  background: linear-gradient(135deg, #4b6cb7, #182848);
+  color: white;
+}
+
+.btn-update:hover, .btn-delete:hover, .btn-back:hover, .btn-confirm:hover, .btn-cancel:hover, .btn-simple:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.custom-modal .modal-content {
+  border-radius: 1rem;
+  border: none;
+  overflow: hidden;
+}
+
+.custom-modal .modal-header {
+  background: linear-gradient(135deg, #ff5a5f, #ff4757);
+  color: white;
+  border-bottom: none;
+  padding: 1.25rem 1.5rem;
+}
+
+.custom-modal .success-header {
+  background: linear-gradient(135deg, #00b09b, #96c93d);
+}
+
+.custom-modal .modal-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+}
+
+.custom-modal .modal-body {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.custom-modal .modal-footer {
+  border-top: none;
+  padding: 1rem 1.5rem 1.5rem;
+  justify-content: center;
+}
+
+.game-mini-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.mini-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.mini-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.btn-confirm {
+  background: linear-gradient(135deg, #ff5a5f, #ff4757);
+  color: white;
+}
+
+.btn-cancel {
+  background: linear-gradient(135deg, #4b6cb7, #182848);
+  color: white;
+}
+
+.btn-simple {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+}
+
+.success-icon {
+  font-size: 3rem;
+  color: var(--success-color);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .game-main {
+    flex-direction: column;
+  }
+
+  .game-image-container {
+    flex: 0 0 auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .game-title {
+    font-size: 1.8rem;
+  }
+
+  .game-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    margin: 2rem auto 0;
+  }
+
+  .btn-update, .btn-delete, .btn-back {
+    width: 100%;
+    justify-content: center;
+  }
+}
