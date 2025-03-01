@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { User } from '../../../types/user';
-import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { UserService } from '../../../service/user.service';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { AuthService } from '../../../service/auth.service';
@@ -9,7 +9,7 @@ import * as bootstrap from 'bootstrap';
 @Component({
   selector: 'app-user-navbar',
   standalone: true,
-  imports: [RouterLink, RouterOutlet, CommonModule],
+  imports: [RouterLink, RouterOutlet, CommonModule,RouterLinkActive],
   templateUrl: './user-navbar.component.html',
   styleUrl: './user-navbar.component.css'
 })
@@ -30,7 +30,7 @@ export class UserNavbarComponent  {
     modal?.hide();
     this.authService.logout();
     this.router.navigate(['/']);
-    
+
   }
 
 }
