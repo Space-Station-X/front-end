@@ -11,6 +11,20 @@
       </div>
       <h1 class="dashboard-title">Historial de Ventas</h1>
       <p class="dashboard-subtitle">Registro de todas las transacciones realizadas</p>
+
+      <!-- Botones de exportación -->
+      @if (hasVentas()) {
+        <div class="export-buttons">
+          <button class="btn-export btn-excel" (click)="exportToExcel()" [disabled]="isExporting()">
+            <i class="fas fa-file-excel"></i>
+            <span>Exportar a Excel</span>
+          </button>
+          <button class="btn-export btn-pdf" (click)="exportToPDF()" [disabled]="isExporting()">
+            <i class="fas fa-file-pdf"></i>
+            <span>Exportar a PDF</span>
+          </button>
+        </div>
+      }
     </div>
 
     <div class="sales-container">

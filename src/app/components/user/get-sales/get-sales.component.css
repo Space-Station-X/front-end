@@ -349,3 +349,65 @@
     justify-content: center;
   }
 }
+
+/* Añadir estos estilos al final del archivo CSS existente */
+
+.export-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-export {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+.btn-export:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-excel {
+  background: linear-gradient(135deg, #00b09b, #96c93d);
+}
+
+.btn-pdf {
+  background: linear-gradient(135deg, #ff5a5f, #ff4757);
+}
+
+.btn-export:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-export i {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .export-buttons {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+
+  .btn-export {
+    width: 100%;
+    justify-content: center;
+  }
+}
