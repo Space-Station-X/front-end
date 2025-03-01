@@ -1,10 +1,9 @@
-import { Component, Inject, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Videogame } from '../../../types/videogame';
 import { VideogameService } from '../../../service/videogame.service';
 import { UserService } from '../../../service/user.service';
-import { flush } from '@angular/core/testing';
 import { LoadingComponent } from "../../modal/loading/loading.component";
 
 @Component({
@@ -15,28 +14,45 @@ import { LoadingComponent } from "../../modal/loading/loading.component";
   styleUrl: './user-home.component.css'
 })
 export class UserHomeComponent implements OnInit {
-  videojuegos: Videogame[] = [];
-  videogameService = inject(VideogameService);
-  route = inject(ActivatedRoute);
+  private videogameService = inject(VideogameService);
+  private route = inject(ActivatedRoute);
+  private userService = inject(UserService);
+
+  videojuegos = signal<Videogame[]>([]);
+  nameUser = signal<string>('');
+  isLoading = signal<boolean>(true);
+
+  hasGames = computed(() => this.videojuegos().length > 0);
+
   userId = this.route.snapshot.params['userId'];
-  userService = inject(UserService)
-  nameUser = ''
-  isLoading: boolean = true
 
   ngOnInit(): void {
+    this.loadUserData();
+  }
 
-    this.userService.geUserById(this.userId).subscribe(
-      (data) => { this.nameUser = data.username
-         this.isLoading = false}
-    )
-
-    this.videogameService.getVideogames().subscribe(
-      (data: Videogame[]) => {
-        this.videojuegos = data
-        
+  private loadUserData(): void {
+    this.userService.geUserById(this.userId).subscribe({
+      next: (data) => {
+        this.nameUser.set(data.username);
+        this.loadVideogames();
+      },
+      error: (error) => {
+        console.error('Error al cargar datos del usuario:', error);
+        this.isLoading.set(false);
       }
-    )
-    
+    });
+  }
 
+  private loadVideogames(): void {
+    this.videogameService.getVideogames().subscribe({
+      next: (data: Videogame[]) => {
+        this.videojuegos.set(data);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        console.error('Error al cargar los videojuegos:', error);
+        this.isLoading.set(false);
+      }
+    });
   }
 }
