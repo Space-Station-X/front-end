@@ -66,24 +66,94 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background-color: white;
+  color: #444;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .btn-action:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  color: white;
 }
 
+.btn-action:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón Crear Videojuego - Verde elegante */
 .btn-create {
-  background: linear-gradient(135deg, #00b09b, #96c93d);
+  border-left: 3px solid #00875a;
+}
+
+.btn-create:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #00875a;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.btn-create:hover:before {
+  width: 100%;
+}
+
+.btn-create:hover {
+  border-color: #00875a;
+}
+
+.btn-create i {
+  color: #00875a;
+  transition: all 0.3s ease;
+}
+
+.btn-create:hover i {
   color: white;
+  transform: scale(1.2);
 }
 
 .btn-view {
-  background: linear-gradient(135deg, #2193b0, #6dd5ed);
+  border-left: 3px solid #2574a9;
+}
+
+.btn-view:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #2574a9;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.btn-view:hover:before {
+  width: 100%;
+}
+
+.btn-view:hover {
+  border-color: #2574a9;
+}
+
+.btn-view i {
+  color: #2574a9;
+  transition: all 0.3s ease;
+}
+
+.btn-view:hover i {
   color: white;
+  transform: scale(1.2);
 }
 
 .table-container {
@@ -262,5 +332,100 @@
     font-weight: 600;
     text-align: left;
     color: #6842ff;
+  }
+}
+/* Añadir estos estilos al final del archivo */
+
+.btn-export-excel,
+.btn-export-pdf {
+  background-color: white;
+  color: #444;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Efecto hover común */
+.btn-export-excel:hover,
+.btn-export-pdf:hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  color: white;
+}
+
+/* Colores específicos para Excel - más refinado y elegante */
+.btn-export-excel {
+  border-left: 3px solid #217346;
+}
+
+.btn-export-excel:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #217346;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.btn-export-excel:hover:before {
+  width: 100%;
+}
+
+.btn-export-excel:hover {
+  border-color: #217346;
+}
+
+/* Colores específicos para PDF - más refinado y elegante */
+.btn-export-pdf {
+  border-left: 3px solid #b30b00;
+}
+
+.btn-export-pdf:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #b30b00;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.btn-export-pdf:hover:before {
+  width: 100%;
+}
+
+.btn-export-pdf:hover {
+  border-color: #b30b00;
+}
+
+/* Ajustes para los iconos dentro de los botones */
+.btn-export-excel i,
+.btn-export-pdf i {
+  transition: transform 0.3s ease;
+}
+
+.btn-export-excel:hover i,
+.btn-export-pdf:hover i {
+  transform: scale(1.2);
+}
+
+/* Para asegurar que los botones se adapten bien en móvil */
+@media (max-width: 768px) {
+  .actions-container {
+    flex-wrap: wrap;
+  }
+
+  .btn-action {
+    margin-bottom: 0.5rem;
+    flex: 1 1 45%;
   }
 }
