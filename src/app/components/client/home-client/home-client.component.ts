@@ -1,16 +1,20 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ClientService } from '../../../service/client.service';
 import { VideogameService } from '../../../service/videogame.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Client } from '../../../types/client';
 import { Videogame } from '../../../types/videogame';
 import { CommonModule, DatePipe } from '@angular/common';
 import { LoadingComponent } from "../../modal/loading/loading.component";
+import { GameCardComponent } from '../components/game-card/game-card.component';
+import { GameDetailModalComponent } from '../components/game-detail-modal/game-detail-modal.component';
+import { WelcomeBannerComponent } from '../components/welcome-banner/welcome-banner.component';
+import { NoGamesComponent } from '../components/no-games/no-games.component';
 
 @Component({
   selector: 'app-home-client',
   standalone: true,
-  imports: [CommonModule, RouterLink, LoadingComponent],
+  imports: [CommonModule, LoadingComponent, GameCardComponent, GameDetailModalComponent, WelcomeBannerComponent, NoGamesComponent],
   providers: [DatePipe],
   templateUrl: './home-client.component.html',
   styleUrl: './home-client.component.css'
@@ -26,7 +30,6 @@ export class HomeClientComponent implements OnInit {
   isLoading = signal<boolean>(true);
   clientId = signal<number>(this.activatedRoute.snapshot.params['clientId']);
 
-  // Propiedades para el modal
   showModal = false;
   selectedGame: Videogame | null = null;
 
@@ -35,20 +38,20 @@ export class HomeClientComponent implements OnInit {
     this.loadVideogames();
   }
 
-  // Método actualizado para manejar diferentes tipos de datos de fecha
   formatDate(dateInput: Date | string | undefined): string {
     if (!dateInput) {
       return 'Fecha no disponible';
     }
     return this.datePipe.transform(dateInput, 'dd/MM/yyyy') || String(dateInput);
   }
+
   formatPrice(price: number | undefined): string {
     if (price === undefined || price === null) {
       return 'Precio no disponible';
     }
     return `S/ ${price.toFixed(2)}`;
   }
-  // Métodos para el modal
+
   openGameDetails(game: Videogame): void {
     this.selectedGame = game;
     this.showModal = true;
