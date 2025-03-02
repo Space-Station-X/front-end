@@ -1,0 +1,16 @@
+.no-games {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  color: #fff;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  color: #a395ff;
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+}

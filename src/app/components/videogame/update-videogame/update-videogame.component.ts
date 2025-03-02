@@ -34,19 +34,19 @@ export class UpdateVideogameComponent implements OnInit {
     nombre: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(3),
-      Validators.maxLength(150),
+      Validators.maxLength(30),
       Validators.pattern("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ \"'.,:-]+$")
     ]),
     plataforma: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(2),
-      Validators.maxLength(100),
+      Validators.maxLength(25),
       Validators.pattern("^[a-zA-Z\\s]+$")
     ]),
     descripcion: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(10),
-      Validators.maxLength(700)
+      Validators.maxLength(500)
     ]),
     precio: new FormControl<number | null>(null, [
       Validators.required,
@@ -160,19 +160,19 @@ export class UpdateVideogameComponent implements OnInit {
       nombre: {
         required: 'El nombre es obligatorio',
         minlength: 'El nombre debe tener al menos 3 caracteres',
-        maxlength: 'El nombre no debe exceder los 150 caracteres',
+        maxlength: 'El nombre no debe exceder los 30 caracteres',
         pattern: 'El nombre contiene caracteres no permitidos'
       },
       plataforma: {
         required: 'La plataforma es obligatoria',
         minlength: 'La plataforma debe tener al menos 2 caracteres',
-        maxlength: 'La plataforma no debe exceder los 100 caracteres',
+        maxlength: 'La plataforma no debe exceder los 25 caracteres',
         pattern: 'Solo se permiten letras y espacios'
       },
       descripcion: {
         required: 'La descripción es obligatoria',
         minlength: 'La descripción debe tener al menos 10 caracteres',
-        maxlength: 'La descripción no debe exceder los 700 caracteres'
+        maxlength: 'La descripción no debe exceder los 500 caracteres'
       },
       precio: {
         required: 'El precio es obligatorio',

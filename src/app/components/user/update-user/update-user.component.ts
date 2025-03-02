@@ -27,13 +27,13 @@ export class UpdateUserComponent implements OnInit {
     username: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(3),
-      Validators.maxLength(150),
+      Validators.maxLength(30),
       Validators.pattern("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ \"'.,:-]+$")
     ]),
     fullname: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(2),
-      Validators.maxLength(100),
+      Validators.maxLength(150),
       Validators.pattern("^[a-zA-Z\\s]+$")
     ]),
     phone: new FormControl<string | null>(null, [

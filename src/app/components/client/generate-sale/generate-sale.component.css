@@ -1,0 +1,344 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:host {
+  font-family: 'Poppins', sans-serif;
+  display: block;
+  height: 100%;
+}
+
+/* Gaming themed container background */
+.sale-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-blend-mode: overlay;
+  padding: 3rem 1rem;
+  color: #fff;
+}
+
+/* Card styling with glassmorphism effect */
+.sale-card {
+  width: 100%;
+  max-width: 480px; /* Reduced from 600px */
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 12px; /* Slightly smaller radius */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sale-card:hover {
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+/* Header styling */
+.sale-header {
+  padding: 1rem; /* Reduced from 1.5rem */
+  background: linear-gradient(90deg, rgba(104, 66, 255, 0.2), rgba(163, 149, 255, 0.1));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+.sale-header h4 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: white;
+  font-size: 1.3rem; /* Reduced from 1.5rem */
+}
+
+
+/* Body styling */
+.sale-body {
+  padding: 1.5rem; /* Reduced from 2rem */
+}
+
+
+/* Game information styling */
+.game-info {
+  margin-bottom: 1.5rem; /* Reduced from 2rem */
+  padding-bottom: 1rem; /* Reduced from 1.5rem */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.game-details h3 {
+  margin: 0 0 0.5rem; /* Reduced margin */
+  font-weight: 700;
+  background: linear-gradient(90deg, #a395ff, #6842ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.5rem; /* Reduced from 1.8rem */
+}
+
+.platform {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+  display: inline-block;
+  background: rgba(104, 66, 255, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.price {
+  font-size: 1.7rem; /* Reduced from 2rem */
+  color: #a395ff;
+  font-weight: 700;
+  margin: 0.7rem 0; /* Reduced from 1rem */
+  text-shadow: 0 0 10px rgba(163, 149, 255, 0.5);
+}
+
+.stock {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+/* Form styling */
+.sale-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Reduced from 2rem */
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem; /* Reduced from 1.5rem */
+  border-radius: 8px; /* Reduced from 12px */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Reduced from 0.8rem */
+}
+
+.form-field label {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-field label i {
+  color: #a395ff;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem; /* Reduced from 1rem */
+}
+
+
+.quantity-control input {
+  width: 100px; /* Reduced from 120px */
+  padding: 0.6rem; /* Reduced from 0.75rem */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px; /* Reduced from 8px */
+  font-size: 1rem; /* Reduced from 1.1rem */
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  transition: border-color 0.2s ease;
+}
+
+.quantity-control input:focus {
+  outline: none;
+  border-color: #a395ff;
+  box-shadow: 0 0 0 2px rgba(104, 66, 255, 0.3);
+}
+
+.quantity-control input::-webkit-inner-spin-button,
+.quantity-control input::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+.total-amount {
+  font-size: 1.1rem; /* Reduced from 1.2rem */
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(104, 66, 255, 0.2);
+  padding: 0.6rem 1rem; /* Reduced from 0.75rem 1.2rem */
+  border-radius: 6px; /* Reduced from 8px */
+  border-left: 3px solid #a395ff;
+}
+
+.total-amount strong {
+  color: #a395ff;
+  font-weight: 700;
+  font-size: 1.2rem; /* Reduced from 1.3rem */
+}
+
+
+/* Button group styling */
+.button-group {
+  display: flex;
+  gap: 0.8rem; /* Reduced from 1rem */
+  margin-top: 0.5rem;
+}
+/* Back button styling */
+.back-btn {
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.back-btn i {
+  font-size: 0.9rem;
+}
+
+/* Purchase button styling */
+.purchase-btn {
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #6842ff, #a395ff);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(104, 66, 255, 0.3);
+}
+
+.purchase-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(104, 66, 255, 0.5);
+}
+
+.purchase-btn:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.purchase-btn i {
+  font-size: 1rem;
+}
+
+/* Error message styling */
+.error-message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: rgba(220, 38, 38, 0.1);
+  border-left: 4px solid rgba(220, 38, 38, 0.8);
+  border-radius: 4px;
+  color: rgba(220, 38, 38, 0.9);
+}
+
+/* Success modal styling */
+.success-modal {
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(104, 66, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.success-modal .modal-header {
+  background: linear-gradient(90deg, rgba(104, 66, 255, 0.2), rgba(163, 149, 255, 0.1));
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+}
+
+.success-modal .modal-header h5 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.success-modal .modal-body {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  color: white;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, #6842ff, #a395ff);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2.5rem;
+  box-shadow: 0 10px 25px rgba(104, 66, 255, 0.5);
+}
+
+.success-modal .modal-body p {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  opacity: 0.9;
+}
+
+.success-modal .modal-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-confirm {
+  background: linear-gradient(90deg, #6842ff, #a395ff);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(104, 66, 255, 0.3);
+}
+
+.btn-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(104, 66, 255, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .button-group {
+    flex-direction: column;
+  }
+
+  .back-btn, .purchase-btn {
+    width: 100%;
+  }
+}

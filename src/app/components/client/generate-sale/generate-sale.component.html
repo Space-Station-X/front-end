@@ -1,45 +1,91 @@
-<app-loading *ngIf="isLoading" message="Conectado con el servidor de Ventas..."></app-loading>
-<div *ngIf="!isLoading" class="container-fluid pt-4 bg-danger vh-100">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card m-3">
-                <div class="card-header text-bg-primary text-white text-center">
-                    <h5 class="mb-0">REGISTRAR VENTA</h5>
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="saleForm" (ngSubmit)="onSubmit()">
-                        <div class="mb-3">
-                            <h5 for="form-label">VideoJuego : {{item.nombre}}</h5>
-                            <h5 for="form-label">Categoria : {{item.plataforma}}</h5>
-                            <h5 for="form-label">Precio : S/ {{item.precio}}</h5>
-                        </div>
-                        <div class="mb-3">
-                            <label for="cantidad" class="form-label " ><strong>Cantidad</strong></label>
-                            <input type="number" id="cantidad" class="form-control w-25" formControlName="cantidad"  required [(ngModel)]="ventaDetalle.quantity">
-                        </div>
-                        <button type="submit" class="btn btn-success " [disabled]="saleForm.invalid">Comprar</button>
-                    </form>
-                </div>
-                <div *ngIf="errorMessage.length !==0" class="alert alert-danger mt-3">
-                  {{ errorMessage }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@if (isLoading()) {
+  <app-loading message="Conectado con el servidor de Ventas..."></app-loading>
+} @else {
+  <div class="sale-container">
+    <div class="sale-card">
+      <div class="sale-header">
+        <h4>Comprar Videojuego</h4>
+      </div>
 
-<div class="modal fade " id="modalSale" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content ">
-        <div class="modal-header text-bg-primary">
-          <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+      <div class="sale-body">
+        <div class="game-info">
+          <div class="game-details">
+            <h3>{{ item().nombre }}</h3>
+            <span class="platform">{{ item().plataforma }}</span>
+            <div class="price">S/ {{ item().precio.toFixed(2) }}</div>
+            <p class="stock">
+              <i class="fas fa-cubes"></i>
+              Stock disponible: {{ item().nuCopias }}
+            </p>
+          </div>
         </div>
-        <div class="modal-body">
-          ¡Gracias por su Compra!
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="hideModal()">Aceptar</button>
-        </div>
+
+        <form [formGroup]="saleForm" (ngSubmit)="onSubmit()" class="sale-form">
+          <div class="form-field">
+            <label for="cantidad">
+              <i class="fas fa-shopping-basket"></i> Cantidad
+            </label>
+            <div class="quantity-control">
+              <input
+                type="number"
+                id="cantidad"
+                formControlName="cantidad"
+                required
+                [max]="maxQuantity()"
+                [min]="1"
+              >
+              <div class="total-amount">
+                Total: <strong>S/ {{ totalAmount().toFixed(2) }}</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button
+              type="button"
+              class="back-btn"
+              (click)="goBack()"
+            >
+              <i class="fas fa-arrow-left"></i> Volver
+            </button>
+
+            <button
+              type="submit"
+              class="purchase-btn"
+              [disabled]="saleForm.invalid || !stockAvailable()"
+            >
+              <i class="fas fa-shopping-cart"></i> Completar Compra
+            </button>
+          </div>
+        </form>
+
+        @if (errorMessage().length !== 0) {
+          <div class="error-message">
+            <i class="fas fa-exclamation-circle"></i> {{ errorMessage() }}
+          </div>
+        }
       </div>
     </div>
   </div>
+}
+
+<!-- Success Modal -->
+<div class="modal fade" id="modalSale" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content success-modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Compra Exitosa</h5>
+      </div>
+      <div class="modal-body">
+        <div class="success-icon">✓</div>
+        <p>¡Gracias por su compra!</p>
+        <p>Su transacción ha sido completada correctamente.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-confirm" (click)="hideModal()">
+          <i class="fas fa-check"></i> Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
