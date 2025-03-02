@@ -1,10 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { SaleService } from '../../../service/sale.service';
 import { VideogameService } from '../../../service/videogame.service';
 import { ClientService } from '../../../service/client.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Videogame } from '../../../types/videogame';
-import { FormControl, FormControlName, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Sales } from '../../../types/sales';
 import { SalesDetails } from '../../../types/sales-details';
@@ -19,75 +25,97 @@ import { LoadingComponent } from "../../modal/loading/loading.component";
   styleUrl: './generate-sale.component.css'
 })
 export class GenerateSaleComponent implements OnInit {
-  item: Videogame = {} as Videogame
-  venta: Sales = {} as Sales
-  ventaDetalle: SalesDetails = {} as SalesDetails
+  // Convert to signals
+  item = signal<Videogame>({} as Videogame);
+  isLoading = signal<boolean>(true);
+  errorMessage = signal<string>('');
+  quantity = signal<number>(1);
 
-  saleService = inject(SaleService)
-  videogameService = inject(VideogameService)
-  clientService = inject(ClientService)
+  // Services
+  saleService = inject(SaleService);
+  videogameService = inject(VideogameService);
+  clientService = inject(ClientService);
+  router = inject(Router);
 
-  homeRoute = inject(ActivatedRoute)
-  clientId = this.homeRoute.parent?.snapshot.params['clientId']
-  videogameId = this.homeRoute.snapshot.params['id']
-  isLoading = true
+  // Router params
+  homeRoute = inject(ActivatedRoute);
+  clientId = this.homeRoute.parent?.snapshot.params['clientId'];
+  videogameId = this.homeRoute.snapshot.params['id'];
 
-  errorMessage = ""
-  
+  // Computed values
+  totalAmount = computed(() => this.item().precio * this.quantity());
+  stockAvailable = computed(() => this.item().nuCopias > 0);
+  maxQuantity = computed(() => this.item().nuCopias);
+
+  // Form
+  saleForm = new FormGroup({
+    cantidad: new FormControl<number>(1, [
+      Validators.required,
+      Validators.min(1)
+    ])
+  });
 
   ngOnInit(): void {
     this.videogameService.getVideogameById(this.videogameId).subscribe(
       data => {
-        this.item = data
-        this.isLoading = false
+        this.item.set(data);
+        this.isLoading.set(false);
       }
-    )
-  }
+    );
 
-  saleForm = new FormGroup(
-    {
-      cantidad: new FormControl<number | null>(null, [
-        Validators.required,
-        Validators.min(1)
-      ]),
-    }
-  )
+    // Connect form to signal
+    this.saleForm.get('cantidad')?.valueChanges.subscribe(value => {
+      if (value !== null) {
+        this.quantity.set(value);
+      }
+    });
+  }
 
   onSubmit() {
-    if (this.ventaDetalle.quantity <= this.item.nuCopias) {
-      this.ventaDetalle.salePrice = this.item.precio
-      this.ventaDetalle.totalAmount = this.item.precio * this.ventaDetalle.quantity
-      this.ventaDetalle.videoGameId = Number(this.videogameId)
+    const currentQuantity = this.quantity();
+    const currentItem = this.item();
 
-      this.venta.customerId = Number(this.clientId)
-      this.venta.saleDate = new Date()
-      this.venta.totalAmount = this.ventaDetalle.totalAmount
-      this.venta.itemCount = this.ventaDetalle.quantity
-      this.venta.userId = Number("1")
-      this.venta.saleDetails = [this.ventaDetalle]
-      //this.venta.saleDetails = [this.ventaDetalle]
+    if (currentQuantity <= currentItem.nuCopias) {
+      const ventaDetalle: SalesDetails = {
+        quantity: currentQuantity,
+        salePrice: currentItem.precio,
+        totalAmount: this.totalAmount(),
+        videoGameId: Number(this.videogameId)
+      } as SalesDetails;
 
+      const venta: Sales = {
+        customerId: Number(this.clientId),
+        saleDate: new Date(),
+        totalAmount: ventaDetalle.totalAmount,
+        itemCount: ventaDetalle.quantity,
+        userId: 1,
+        saleDetails: [ventaDetalle]
+      } as Sales;
 
-
-      this.saleService.createSale(this.venta).subscribe(
+      this.saleService.createSale(venta).subscribe(
         data => {
-          this.item.nuCopias = this.item.nuCopias - this.venta.itemCount
-          this.item.nuCopias=== 0 ? this.item.activo = "N" : this.item.activo = "S"
-          this.videogameService.updateVideogame(this.item).subscribe()
-          //mensaje Modal
-          const modal = new bootstrap.Modal(document.getElementById("modalSale")!)
-          modal.show()
+          const updatedItem = { ...currentItem };
+          updatedItem.nuCopias = updatedItem.nuCopias - venta.itemCount;
+          updatedItem.activo = updatedItem.nuCopias === 0 ? "N" : "S";
+
+          this.item.set(updatedItem);
+          this.videogameService.updateVideogame(updatedItem).subscribe();
+
+          // Show success modal
+          const modal = new bootstrap.Modal(document.getElementById("modalSale")!);
+          modal.show();
         }
-      )
-    }else{
-      this.errorMessage = "Disculpenos , tenemos stok limitado \n solo nos quedan " + this.item.nuCopias
+      );
+    } else {
+      this.errorMessage.set(`Disculpenos, tenemos stock limitado. Solo nos quedan ${currentItem.nuCopias}`);
     }
   }
-
-  hideModal() {
-    const modal = bootstrap.Modal.getInstance(document.getElementById("modalSale")!)
-    modal?.hide()
-
+  goBack(): void {
+    // Navigate to the parent route (typically the client's games list)
+    this.router.navigate(['/clientHome', this.clientId]);
   }
-
+  hideModal() {
+    const modal = bootstrap.Modal.getInstance(document.getElementById("modalSale")!);
+    modal?.hide();
+  }
 }
