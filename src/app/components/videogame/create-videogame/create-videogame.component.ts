@@ -86,19 +86,19 @@ export class CreateVideogameComponent {
       nombre: {
         required: 'El nombre es obligatorio',
         minlength: 'El nombre debe tener al menos 3 caracteres',
-        maxlength: 'El nombre no debe exceder los 150 caracteres',
+        maxlength: 'El nombre no debe exceder los 30 caracteres',
         pattern: 'El nombre contiene caracteres no permitidos'
       },
       plataforma: {
         required: 'La plataforma es obligatoria',
         minlength: 'La plataforma debe tener al menos 2 caracteres',
-        maxlength: 'La plataforma no debe exceder los 100 caracteres',
+        maxlength: 'La plataforma no debe exceder los 250 caracteres',
         pattern: 'Solo se permiten letras y espacios'
       },
       descripcion: {
         required: 'La descripción es obligatoria',
         minlength: 'La descripción debe tener al menos 10 caracteres',
-        maxlength: 'La descripción no debe exceder los 700 caracteres'
+        maxlength: 'La descripción no debe exceder los 500 caracteres'
       },
       precio: {
         required: 'El precio es obligatorio',

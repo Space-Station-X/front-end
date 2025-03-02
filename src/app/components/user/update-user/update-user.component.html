@@ -38,7 +38,7 @@
                       } @else if (userForm.get('username')?.errors?.['minlength']) {
                         <small>Mínimo 3 caracteres.</small>
                       } @else if (userForm.get('username')?.errors?.['maxlength']) {
-                        <small>Máximo 150 caracteres.</small>
+                        <small>Máximo 30 caracteres.</small>
                       } @else if (userForm.get('username')?.errors?.['pattern']) {
                         <small>Formato no válido.</small>
                       }
@@ -71,7 +71,7 @@
                       } @else if (userForm.get('fullname')?.errors?.['minlength']) {
                         <small>Mínimo 2 caracteres.</small>
                       } @else if (userForm.get('fullname')?.errors?.['maxlength']) {
-                        <small>Máximo 100 caracteres.</small>
+                        <small>Máximo 150 caracteres.</small>
                       } @else if (userForm.get('fullname')?.errors?.['pattern']) {
                         <small>Solo se permiten letras y espacios.</small>
                       }

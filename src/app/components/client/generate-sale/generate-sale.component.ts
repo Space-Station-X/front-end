@@ -117,5 +117,6 @@ export class GenerateSaleComponent implements OnInit {
   hideModal() {
     const modal = bootstrap.Modal.getInstance(document.getElementById("modalSale")!);
     modal?.hide();
+    this.goBack()
   }
 }
