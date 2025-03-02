@@ -1,0 +1,52 @@
+<div class="game-modal" [class.show-modal]="visible">
+  <div class="modal-backdrop" (click)="closeModal()"></div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{ game?.nombre }}</h4>
+        <button type="button" class="close-button" (click)="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-game-info">
+          <div class="modal-image-container">
+            <img
+              [src]="game?.imagen"
+              alt="{{ game?.nombre }}"
+              class="modal-image"
+            />
+          </div>
+          <div class="modal-game-details">
+            <div class="modal-detail-row">
+              <span class="detail-label"><i class="fas fa-gamepad"></i> Plataforma:</span>
+              <span class="detail-value">{{ game?.plataforma }}</span>
+            </div>
+            <div class="modal-detail-row">
+              <span class="detail-label"><i class="fas fa-calendar"></i> Fecha:</span>
+              <span class="detail-value">{{ formatDate(game?.feReg) }}</span>
+            </div>
+            <div class="modal-detail-row">
+              <span class="detail-label"><i class="fas fa-tag"></i> Precio:</span>
+              <span class="detail-value price">{{ formatPrice(game?.precio) }}</span>
+            </div>
+          </div>
+        </div>
+
+        <h5 class="modal-section-title">Descripción</h5>
+        <p class="modal-description">{{ game?.descripcion }}</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          class="buy-button modal-buy-button"
+          [routerLink]="['/clientHome', clientId, 'generateSale', game?.id]"
+          (click)="closeModal()"
+        >
+          <span class="button-icon"><i class="fas fa-shopping-cart"></i></span>
+          <span class="button-text">Comprar Ahora</span>
+        </button>
+        <button class="cancel-button" (click)="closeModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="game-card">
+  <div class="game-header">
+    <h3 class="game-title" [title]="game.nombre">{{ game.nombre }}</h3>
+    <span class="game-platform">{{ game.plataforma }}</span>
+  </div>
+
+  <div class="game-content">
+    <div class="game-image-container">
+      <img [src]="game.imagen" alt="{{ game.nombre }}" class="game-image" />
+    </div>
+
+    <div class="game-info">
+      <div class="game-details">
+        <div class="detail-item">
+          <span class="detail-icon"><i class="fas fa-calendar"></i></span>
+          <span class="detail-text">{{ formatDate(game.feReg) }}</span>
+        </div>
+        <div class="detail-item price-container">
+          <span class="detail-icon"><i class="fas fa-tag"></i></span>
+          <span class="detail-text price">{{ formatPrice(game.precio) }}</span>
+        </div>
+      </div>
+
+      <div class="description-container">
+        <p class="game-description">{{ game.descripcion }}</p>
+      </div>
+
+      <div class="button-container">
+        <button class="view-more-btn" (click)="openDetails()">
+          <i class="fas fa-eye"></i> Ver más
+        </button>
+        <button
+          class="buy-button"
+          [routerLink]="['/clientHome', clientId, 'generateSale', game.id]"
+        >
+          <span class="button-icon"><i class="fas fa-shopping-cart"></i></span>
+          <span class="button-text">Comprar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
